@@ -1,0 +1,3 @@
+environment: default
+application:
+  port: 8080

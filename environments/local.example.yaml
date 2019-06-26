@@ -1,0 +1,3 @@
+environment: local
+application:
+  port: 8080

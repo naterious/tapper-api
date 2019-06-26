@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "babel-preset-flow",
+    "babel-preset-es2015-node",
+    "babel-preset-stage-0"
+  ],
+  "plugins": [
+    "babel-plugin-istanbul",
+    "babel-plugin-transform-export-extensions"
+  ]
+}
