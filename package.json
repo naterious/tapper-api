@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "Nathan Taylor",
   "main": "lib/main.js",
-  "repository": "git url",
+  "repository": "git@github.com:naterious/trivia-tapper-api.git",
   "scripts": {
     "start": "node lib/main.js",
     "start:dev": "babel-watch src/main.js",
