@@ -2,6 +2,7 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const url = 'mongodb://localhost:27017/Business';
+const macUrl = 'mongodb://192.168.99.100:27017';
 
 const dbName = 'TriviaTapper';
 

@@ -2,10 +2,11 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 const url = 'mongodb://localhost:27017';
+const macUrl = 'mongodb://192.168.99.100:27017';
 
 const dbName = 'TriviaTapper';
 
-const client = new MongoClient(url);
+const client = new MongoClient(macUrl);
 
 client.connect((err) => {
   assert.equal(null, err);
