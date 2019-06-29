@@ -1,58 +1,50 @@
 // @flow
 import composeServer from './server';
 
-import createScraper from './scraper';
-import createGetAllFacts from './getAllFacts';
-import createAddUser from './addUser';
-import createMarkFactAsSeen from './markFactAsSeen';
-import createAddToFavourites from './addToFavourites';
-import createGetUnseenFacts from './getUnseenFacts';
-import createGetFavourites from './getFavourites';
-import createGetSeenFacts from './getSeenFacts';
-import createGetFactById from './getFactById';
-import createRemoveFromFavourites from './removeFromFavourites';
-
-import createRegister from './register';
-import validateRegisterInput from './validation/register';
-
-import createLogin from './login';
-import validateLoginInput from './validation/login';
+import fact from './facts';
+import quote from './quotes';
+import user from './users';
 
 //import { defaultApiMethodErrorHandler } from '../core/errors';
 
 import type {
   Logger,
   ServerConfig,
-  GetUser,
 } from '../core/contracts';
 
-import type { ScraperService } from '../application/scraper';
-import type { GetAllFactsService } from '../application/getAllFacts';
-import type { AddUserService } from '../application/addUser';
-import type { MarkfactAsSeenService } from '../application/markFactAsSeen';
-import type { AddToFavouritesService } from '../application/addToFavourites';
-import type { GetUnseenFactsService } from '../application/getUnseenFacts';
-import type { GetFavouritesService } from '../application/getFavourites';
-import type { GetSeenFactsService } from '../application/getSeenFacts';
-import type { LoginService } from '../application/login';
-import type { GetFactByIdService } from '../application/getFactById';
-import type { RemoveFromFavouritesService } from '../application/removeFromFavourites';
+import type { FactsScraperService } from '../application/facts/scraper';
+import type { QuotesScraperService } from '../application/quotes/scraper';
+
+import type { GetAllFactsService } from '../application/facts/getAllFacts';
+import type { MarkfactAsSeenService } from '../application/facts/markFactAsSeen';
+import type { AddFactToFavouritesService } from '../application/facts/addFactToFavourites';
+import type { GetUnseenFactsService } from '../application/facts/getUnseenFacts';
+import type { GetFavouriteFactsService } from '../application/facts/getFavouriteFacts';
+import type { GetSeenFactsService } from '../application/facts/getSeenFacts';
+import type { GetFactByIdService } from '../application/facts/getFactById';
+import type { RemoveFactFromFavouritesService } from '../application/facts/removeFactFromFavourites';
+
+import type { LoginService } from '../application/users/login';
+import type { AddUserService } from '../application/users/addUser';
 
 type Dependencies = {
-  scraperService: ScraperService,
   serverConfig: ServerConfig,
   logger: Logger,
+
+  factsScraperService: FactsScraperService,
+  quotesScraperService: QuotesScraperService,
+
   getAllFactsService: GetAllFactsService,
-  addUserService: AddUserService,
   markFactAsSeenService: MarkfactAsSeenService,
-  addToFavouritesService: AddToFavouritesService,
+  addFactToFavouritesService: AddFactToFavouritesService,
   getUnseenFactsService: GetUnseenFactsService,
-  getFavouritesService: GetFavouritesService,
+  getFavouriteFactsService: GetFavouriteFactsService,
   getSeenFactsService: GetSeenFactsService,
-  getUser: GetUser,
-  loginService: LoginService,
   getFactByIdService: GetFactByIdService,
-  removeFromFavouritesService: RemoveFromFavouritesService,
+  removeFactFromFavouritesService: RemoveFactFromFavouritesService,
+
+  addUserService: AddUserService,
+  loginService: LoginService,
 };
 
 export default (dependencies: Dependencies) => {
@@ -60,56 +52,60 @@ export default (dependencies: Dependencies) => {
   // const partialDefaultApiMethodErrorHandler =
   //   defaultApiMethodErrorHandler(dependencies.logger);
 
-  const scraper = createScraper(
-    dependencies.scraperService,
+  const factsScraper = fact.createFactsScraper(
+    dependencies.factsScraperService,
     dependencies.logger,
     //partialDefaultApiMethodErrorHandler,
   );
 
-  const getAllFacts = createGetAllFacts(
+  const getAllFacts = fact.createGetAllFacts(
     dependencies.getAllFactsService,
   );
 
-  const addUser = createAddUser(
-    dependencies.addUserService,
-  );
-
-  const markFactAsSeen = createMarkFactAsSeen(
+  const markFactAsSeen = fact.createMarkFactAsSeen(
     dependencies.markFactAsSeenService,
   );
 
-  const addToFavourites = createAddToFavourites(
-    dependencies.addToFavouritesService,
+  const addFactToFavourites = fact.createAddFactToFavourites(
+    dependencies.addFactToFavouritesService,
   );
 
-  const getUnseenFacts = createGetUnseenFacts(
+  const getUnseenFacts = fact.createGetUnseenFacts(
     dependencies.getUnseenFactsService,
   );
 
-  const getFavourites = createGetFavourites(
-    dependencies.getFavouritesService,
+  const getFavouriteFacts = fact.createGetFavouriteFacts(
+    dependencies.getFavouriteFactsService,
   );
 
-  const getSeenFacts = createGetSeenFacts(
+  const getSeenFacts = fact.createGetSeenFacts(
     dependencies.getSeenFactsService,
   );
 
-  const register = createRegister(
-    validateRegisterInput,
-    dependencies.addUserService,
-  );
-
-  const login = createLogin(
-    validateLoginInput,
-    dependencies.loginService,
-  );
-
-  const getFactById = createGetFactById(
+  const getFactById = fact.createGetFactById(
     dependencies.getFactByIdService,
   );
 
-  const removeFromFavourites = createRemoveFromFavourites(
-    dependencies.removeFromFavouritesService,
+  const removeFactFromFavourites = fact.createRemoveFactFromFavourites(
+    dependencies.removeFactFromFavouritesService,
+  );
+
+
+  const register = user.createRegister(
+    user.validateRegisterInput,
+    dependencies.addUserService,
+  );
+
+  const login = user.createLogin(
+    user.validateLoginInput,
+    dependencies.loginService,
+  );
+
+
+  const quotesScraper = quote.createQuotesScraper(
+    dependencies.quotesScraperService,
+    dependencies.logger,
+    //partialDefaultApiMethodErrorHandler,
   );
 
   const {
@@ -117,36 +113,41 @@ export default (dependencies: Dependencies) => {
   } = composeServer({
     ...dependencies,
 
-    scraper,
     serverConfig: dependencies.serverConfig,
     logger: dependencies.logger,
+
+    factsScraper,
+    quotesScraper,
+
     getAllFacts,
-    addUser,
     markFactAsSeen,
-    addToFavourites,
+    addFactToFavourites,
     getUnseenFacts,
-    getFavourites,
+    getFavouriteFacts,
     getSeenFacts,
+    getFactById,
+    removeFactFromFavourites,
+
     register,
     login,
-    getFactById,
-    removeFromFavourites,
   });
 
   return {
     server,
 
-    scraperMethod: scraper,
+    factsScraperMethod: factsScraper,
+    quotesScraperMethod: quotesScraper,
+
     getAllFactsMethod: getAllFacts,
-    addUserMethod: addUser,
     markFactAsSeenMethod: markFactAsSeen,
-    addToFavouritesMethod: addToFavourites,
+    addFactToFavouritesMethod: addFactToFavourites,
     getUnseenFactsMethod: getUnseenFacts,
-    getFavouritesMethod: getFavourites,
+    getFavouriteFactsMethod: getFavouriteFacts,
     getSeenFactsMethod: getSeenFacts,
+    getFactByIdMethod: getFactById,
+    removeFactFromFavouritesMethod: removeFactFromFavourites,
+
     registerMethod: register,
     loginMethod: login,
-    getFactByIdMethod: getFactById,
-    removeFromFavouritesMethod: removeFromFavourites,
   };
 };

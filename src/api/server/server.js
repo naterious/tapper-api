@@ -2,8 +2,6 @@
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import passport from 'passport';
-import express from 'express';
-import passportStat from 'passport-local';
 
 import passportConfig from './passport';
 //import User from '../../core/models/user';
@@ -11,7 +9,7 @@ import passportConfig from './passport';
 import type { ExpressServer } from './express';
 import type { Router } from './router';
 import type {
-  Logger, ServerConfig, GetUser,
+  Logger, ServerConfig,
 } from '../../core/contracts';
 /* eslint-disable fp/no-nil */
 
@@ -21,7 +19,6 @@ export default (
   router: Router,
   serverConfig: ServerConfig,
   logger: Logger,
-  getUser: GetUser,
 ) => () => {
   const app = createServer();
   app.use(bodyParser.urlencoded({ extended: false }));

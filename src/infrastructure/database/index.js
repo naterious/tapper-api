@@ -1,16 +1,11 @@
+// @flow
 import getInstance from './repositories/getInstance';
-import composeAddToDb from './addToDatabase';
-import composeGetAllFacts from './getAllFacts';
+
+import fact from './facts';
+import quote from './quotes';
+
 import composeAddUser from './addUser';
-import composeMarkFactAsSeen from './markFactAsSeenByUser';
-import composeAddToFavourites from './addToFavourties';
-import composeGetUnseenFacts from './getUnseenFactsForUser';
-import composeGetFavourites from './getFavourites';
-import composeGetSeenFacts from './getSeenFacts';
-import composeGetUser from './getUser';
 import composeLogin from './login';
-import composeGetFactById from './getFactById';
-import composeRemoveFromFavourites from './removeFromFavourites';
 
 import type { DatabaseConfig } from '../../core/contracts';
 
@@ -21,43 +16,45 @@ type Dependencies = {
 export default (dependencies: Dependencies) => {
   const client = getInstance(dependencies.config)();
 
-  const addToDatabase = composeAddToDb(client);
+  const addFactsToDatabase = fact.composeAddToDb(client);
 
-  const getAllFacts = composeGetAllFacts(client);
+  const getAllFacts = fact.composeGetAllFacts(client);
+
+  const markFactAsSeenByUser = fact.composeMarkFactAsSeen(client);
+
+  const addFactToFavourites = fact.composeAddFactToFavourites(client);
+
+  const getUnseenFacts = fact.composeGetUnseenFacts(client);
+
+  const getFavouriteFacts = fact.composeGetFavouriteFacts(client);
+
+  const getSeenFacts = fact.composeGetSeenFacts(client);
+
+  const getFactById = fact.composeGetFactById(client);
+
+  const removeFactFromFavourites = fact.composeRemoveFactFromFavourites(client);
 
   const addUser = composeAddUser(client);
 
-  const markFactAsSeenByUser = composeMarkFactAsSeen(client);
-
-  const addToFavourites = composeAddToFavourites(client);
-
-  const getUnseenFacts = composeGetUnseenFacts(client);
-
-  const getFavourites = composeGetFavourites(client);
-
-  const getSeenFacts = composeGetSeenFacts(client);
-
-  const getUser = composeGetUser(client);
-
   const login = composeLogin(client);
 
-  const getFactById = composeGetFactById(client);
-
-  const removeFromFavourites = composeRemoveFromFavourites(client);
+  const addQuotesToDatabase = quote.composeAddToDb(client);
 
   return {
-    addToDatabase,
+    addFactsToDatabase,
     getInstance,
     getAllFacts,
-    addUser,
     markFactAsSeenByUser,
-    addToFavourites,
+    addFactToFavourites,
     getUnseenFacts,
-    getFavourites,
+    getFavouriteFacts,
     getSeenFacts,
-    getUser,
-    login,
     getFactById,
-    removeFromFavourites,
+    removeFactFromFavourites,
+
+    addQuotesToDatabase,
+
+    addUser,
+    login,
   };
 };

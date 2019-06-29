@@ -1,7 +1,7 @@
 // @flow
 import Fluture from 'fluture';
 
-export type AddToDatabase = (data: Array<Object>) => Fluture<any, any>;
+export type AddFactsToDatabase = (data: Array<Object>) => Fluture<any, any>;
 
 export type GetAllFacts = () => Fluture<any, any>;
 
@@ -12,14 +12,14 @@ export type MarkFactAsSeenByUser = ({
   factId: String,
 }) => Fluture<any, any>;
 
-export type AddToFavourites = ({
+export type AddFactToFavourites = ({
   userId: string,
   factId: String,
 }) => Fluture<any, any>;
 
 export type GetUnseenFacts = (id) => Fluture<any, any>;
 
-export type GetFavourites = (id) => Fluture<any, any>;
+export type GetFavouriteFacts = (id) => Fluture<any, any>;
 
 export type GetSeenfacts = (id) => Fluture<any, any>;
 

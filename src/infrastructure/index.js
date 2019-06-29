@@ -1,6 +1,4 @@
 // @flow
-import { of } from 'fluture';
-
 import composeConfig from './config';
 import logger from './logger';
 import composeScraper from './scraper';
@@ -8,7 +6,7 @@ import composeDatabase from './database';
 
 export default () => {
   const config = composeConfig();
-  const scraper = composeScraper({
+  const factsScraper = composeScraper({
     config: config.getScraperConfig(),
   });
   const database = composeDatabase({
@@ -21,7 +19,7 @@ export default () => {
     databaseConfig: config.getDatabaseConfig(),
 
     logger,
-    ...scraper,
+    ...factsScraper,
     ...database,
   };
 };

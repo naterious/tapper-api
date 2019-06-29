@@ -18,5 +18,7 @@ client.connect((err) => {
 
   const userCollection = db.collection('users');
 
+  const quotesCollection = db.collection('Quotes');
+
   client.close();
 });

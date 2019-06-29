@@ -9,17 +9,18 @@ export type {
 export type { Logger } from './logger';
 
 export type {
-  Scraper,
+  FactsScraper,
+  QuotesScraper,
 } from './scraper';
 
 export type {
-  AddToDatabase,
+  AddFactsToDatabase,
   GetAllFacts,
   AddUser,
   MarkFactAsSeenByUser,
-  AddToFavourites,
+  AddFactToFavourites,
   GetUnseenFacts,
-  GetFavourites,
+  GetFavouriteFacts,
   GetSeenfacts,
   GetFactById,
 } from './database';

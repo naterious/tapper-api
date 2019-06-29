@@ -6,7 +6,7 @@ const macUrl = 'mongodb://192.168.99.100:27017';
 
 const dbName = 'TriviaTapper';
 
-const client = new MongoClient(url);
+const client = new MongoClient(macUrl);
 
 client.connect(function(err, db) {
   if (err) {

@@ -1,43 +1,41 @@
 //@flow
-import passport from 'passport';
-
-import User from '../../core/models/user';
-import validateRegisterInput from '../validation/register';
-import validateLoginInput from '../validation/login';
-
 import { type Router as $Router, type $Application } from 'express';
 
-import type { ScraperMethod } from '../scraper';
-import type { GetAllFactsMethod } from '../getAllFacts';
-import type { AddUserMethod } from '../addUser';
-import type { MarkFactAsSeenMethod } from '../markFactAsSeen';
-import type { AddToFavouritesMethod } from '../addToFavourites';
-import type { GetUnseenFactsMethod } from '../getUnseenFacts';
-import type { GetFavouritesMethod } from '../getUnseenFacts';
-import type { GetSeenFactsMethod } from '../getSeenfacts';
-import type { GetFactByIdMethod } from '../getFactById';
-import type { RemoveFromFavouritesMethod } from '../removeFromFavourites';
+import type { FactsScraperMethod } from '../facts/scraper';
+import type { QuotesScraperMethod } from '../quotes/scraper';
 
-import type { RegisterMethod } from '../register';
-import type { LoginMethod } from '../login';
+import type { GetAllFactsMethod } from '../facts/getAllFacts';
+import type { MarkFactAsSeenMethod } from '../facts/markFactAsSeen';
+import type { AddFactToFavouritesMethod } from '../facts/addFactToFavourites';
+import type { GetUnseenFactsMethod } from '../facts/getUnseenFacts';
+import type { GetFavouriteFactsMethod } from '../facts/getFavouriteFacts';
+import type { GetSeenFactsMethod } from '../facts/getSeenFacts';
+import type { GetFactByIdMethod } from '../facts/getFactById';
+import type { RemoveFactFromFavouritesMethod } from '../facts/removeFactFromFavourites';
+
+import type { RegisterMethod } from '../users/register';
+import type { LoginMethod } from '../users/login';
 
 export type Router = (app: $Application) => $Router;
 
 // const v = 1;
 
 type Methods = {
-  scraper: ScraperMethod,
+  factsScraper: FactsScraperMethod,
+  quotesScraper: QuotesScraperMethod,
+
   getAllFacts: GetAllFactsMethod,
-  addUser: AddUserMethod,
   markFactAsSeen: MarkFactAsSeenMethod,
-  addToFavourites: AddToFavouritesMethod,
+  addFactToFavourites: AddFactToFavouritesMethod,
   getUnseenFacts: GetUnseenFactsMethod,
-  getFavourites: GetFavouritesMethod,
+  getFavouriteFacts: GetFavouriteFactsMethod,
   getSeenFacts: GetSeenFactsMethod,
+  getFactById: GetFactByIdMethod,
+  removeFactFromFavourites: RemoveFactFromFavouritesMethod,
+
+  addUser: AddUserMethod,
   register: RegisterMethod,
   login: LoginMethod,
-  getFactById: GetFactByIdMethod,
-  removeFromFavourites: RemoveFromFavouritesMethod,
 };
 
 // function fulfills Router type, returns void
@@ -50,16 +48,18 @@ export default (methods: Methods): Router => (app: $Application) => {
     return res.send('1.0.0');
   });
 
-  app.get('/scrape', methods.scraper);
+  app.get('/facts/scrape', methods.factsScraper);
+  app.get('/quotes/scrape', methods.quotesScraper);
+
   app.get('/facts', methods.getAllFacts);
   app.post('/users', methods.addUser);
   app.post('/facts/seen', methods.markFactAsSeen);
-  app.post('/facts/liked', methods.addToFavourites);
+  app.post('/facts/liked', methods.addFactToFavourites);
   app.get('/facts/:id/new', methods.getUnseenFacts);
-  app.get('/facts/:id/favourites', methods.getFavourites);
+  app.get('/facts/:id/favourites', methods.getFavouriteFacts);
   app.get('/facts/:id/seen', methods.getSeenFacts);
   app.get('/facts/fact/:id', methods.getFactById);
-  app.delete('/facts/liked', methods.removeFromFavourites);
+  app.delete('/facts/liked', methods.removeFactFromFavourites);
 
   app.post('/users/register', methods.register);
   app.post('/users/login', methods.login);

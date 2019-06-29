@@ -1,105 +1,114 @@
 // @flow
-import createScraper from './scraper';
-import createGetAllFacts from './getAllFacts';
-import createAddUser from './addUser';
-import createMarkFactAsSeen from './markFactAsSeen';
-import createAddToFavourites from './addToFavourites';
-import createGetUnseenFacts from './getUnseenFacts';
-import createGetFavourties from './getFavourites';
-import createGetSeenFacts from './getSeenFacts';
-import createLogin from './login';
-import createGetFactById from './getFactById';
-import createRemoveFromFavourites from './removeFromFavourites';
+import fact from './facts';
+import quote from './quotes';
+import user from './users';
 
 import type {
-  Scraper,
-  AddToDatabase,
+  FactsScraper,
+  QuotesScraper,
+
+  AddFactsToDatabase,
   GetAllFacts,
-  AddUser,
   MarkFactAsSeenByUser,
-  AddToFavourites,
+  AddFactToFavourites,
   GetUnseenFacts,
-  GetFavourites,
+  GetFavouriteFacts,
   GetSeenFacts,
-  Login,
   GetFactById,
-  RemoveFromFavourites,
+  RemoveFactFromFavourites,
+
+  AddUser,
+  Login,
 } from '../core/contracts';
 
 type Dependencies = {
-  scraper: Scraper,
-  addToDatabase: AddToDatabase,
+  factsScraper: FactsScraper,
+  quotesScraper: QuotesScraper,
+
+  addFactsToDatabase: AddFactsToDatabase,
   getAllFacts: GetAllFacts,
-  addUser: AddUser,
   markFactAsSeenByUser: MarkFactAsSeenByUser,
-  addToFavourites: AddToFavourites,
+  addFactToFavourites: AddFactToFavourites,
   getUnseenFacts: GetUnseenFacts,
-  getFavourites: GetFavourites,
-  getSeenFacts: GetSeenfacts,
-  login: Login,
+  getFavouriteFacts: GetFavouriteFacts,
+  getSeenFacts: GetSeenFacts,
   getFactById: GetFactById,
-  removeFromFavourites: RemoveFromFavourites,
+  removeFactFromFavourites: RemoveFactFromFavourites,
+
+  addUser: AddUser,
+  login: Login,
 };
 
 export default (dependencies: Dependencies) => {
 
-  const scraperService = createScraper(
-    dependencies.scraper,
-    dependencies.addToDatabase,
+  const factsScraperService = fact.createScraper(
+    dependencies.factsScraper,
+    dependencies.addFactsToDatabase,
     dependencies.getAllFacts,
   );
 
-  const getAllFactsService = createGetAllFacts(
+  const getAllFactsService = fact.createGetAllFacts(
     dependencies.getAllFacts,
   );
 
-  const addUserService = createAddUser(
-    dependencies.addUser,
-  );
-
-  const markFactAsSeenService = createMarkFactAsSeen(
+  const markFactAsSeenService = fact.createMarkFactAsSeen(
     dependencies.markFactAsSeenByUser,
   );
 
-  const addToFavouritesService = createAddToFavourites(
-    dependencies.addToFavourites,
+  const addFactToFavouritesService = fact.createAddFactToFavourites(
+    dependencies.addFactToFavourites,
   );
 
-  const getUnseenFactsService = createGetUnseenFacts(
+  const getUnseenFactsService = fact.createGetUnseenFacts(
     dependencies.getUnseenFacts,
   );
 
-  const getFavouritesService = createGetFavourties(
-    dependencies.getFavourites,
+  const getFavouriteFactsService = fact.createGetFavourties(
+    dependencies.getFavouriteFacts,
   );
 
-  const getSeenFactsService = createGetSeenFacts(
+  const getSeenFactsService = fact.createGetSeenFacts(
     dependencies.getSeenFacts,
   );
 
-  const loginService = createLogin(
-    dependencies.login,
-  );
-
-  const getFactByIdService = createGetFactById(
+  const getFactByIdService = fact.createGetFactById(
     dependencies.getFactById,
   );
 
-  const removeFromFavouritesService = createRemoveFromFavourites(
-    dependencies.removeFromFavourites,
+  const removeFactFromFavouritesService = fact.createRemoveFactFromFavourites(
+    dependencies.removeFactFromFavourites,
+  );
+
+
+  const addUserService = user.createAddUser(
+    dependencies.addUser,
+  );
+
+  const loginService = user.createLogin(
+    dependencies.login,
+  );
+
+
+  const quotesScraperService = quote.createScraper(
+    dependencies.quotesScraper,
+    dependencies.addQuotesToDatabase,
+    dependencies.getAllQuotes,
   );
 
   return {
-    scraperService,
+    factsScraperService,
+    quotesScraperService,
+
     getAllFactsService,
-    addUserService,
     markFactAsSeenService,
-    addToFavouritesService,
+    addFactToFavouritesService,
     getUnseenFactsService,
-    getFavouritesService,
+    getFavouriteFactsService,
     getSeenFactsService,
-    loginService,
     getFactByIdService,
-    removeFromFavouritesService,
+    removeFactFromFavouritesService,
+
+    addUserService,
+    loginService,
   };
 };

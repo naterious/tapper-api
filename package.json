@@ -22,7 +22,7 @@
     "build": "babel src -d lib",
     "createDb": "node scripts/createDb.js",
     "dropDb": "node scripts/dropDb.js",
-    "docker:mongo": "mkdir -p ~/data && docker run -d -p 27017:27017 -v ~/data:/data/db mongo",
+    "docker:mongo": "mkdir -p data && docker run -d -p 27017:27017 -v data:/data/db mongo",
     "prepush": "yarn lint && yarn flow && yarn test"
   },
   "dependencies": {

@@ -1,3 +1,5 @@
 environment: default
 application:
   port: 8080
+scraper:
+  url: https://old.reddit.com/r

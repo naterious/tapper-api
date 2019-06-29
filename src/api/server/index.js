@@ -5,40 +5,44 @@ import router from './router';
 
 import User from '../../core/models/user';
 
-import type { ScraperMethod } from '../scraper';
-import type { GetAllFactsMethod } from '../getAllFacts';
-import type { AddUserMethod } from '../addUser';
-import type { MarkFactAsSeenMethod } from '../markFactAsSeen';
-import type { AddToFavouritesMethod } from '../addToFavourites';
-import type { GetUnseenFactsMethod } from '../getUnseenFacts';
-import type { GetFavouritesMethod } from '../getUnseenFacts';
-import type { GetSeenFactsMethod } from '../getSeenfacts';
-import type { GetFactByIdMethod } from '../getFactById';
-import type { RemoveFromFavouritesMethod } from '../removeFromFavourites';
+import type { FactsScraperMethod } from '../facts/scraper';
+import type { QuotesScraperMethod } from '../quotes/scraper';
 
-import type { RegisterMethod } from '../register';
-import type { LoginMethod } from '../login';
+import type { GetAllFactsMethod } from '../facts/getAllFacts';
+import type { MarkFactAsSeenMethod } from '../facts/markFactAsSeen';
+import type { AddFactToFavouritesMethod } from '../facts/addFactToFavourites';
+import type { GetUnseenFactsMethod } from '../facts/getUnseenFacts';
+import type { GetFavouriteFactsMethod } from '../facts/getFavouriteFacts';
+import type { GetSeenFactsMethod } from '../facts/getSeenFacts';
+import type { GetFactByIdMethod } from '../facts/getFactById';
+import type { RemoveFactFromFavouritesMethod } from '../facts/removeFactFromFavourites';
+
+import type { RegisterMethod } from '../users/register';
+import type { LoginMethod } from '../users/login';
 
 import type {
-  Logger, ServerConfig, GetUser,
+  Logger, ServerConfig,
 } from '../../core/contracts';
 
 type Dependencies = {
-  scraper: ScraperMethod,
   serverConfig: ServerConfig,
   logger: Logger,
+
+  factsScraper: FactsScraperMethod,
+  quotesScraper: QuotesScraperMethod,
+
   getAllFacts: GetAllFactsMethod,
-  addUser: AddUserMethod,
   markFactAsSeen: MarkFactAsSeenMethod,
-  addToFavourites: AddToFavouritesMethod,
+  addFactToFavourites: AddFactToFavouritesMethod,
   getUnseenFacts: GetUnseenFactsMethod,
-  getFavourites: GetFavouritesMethod,
+  getFavouriteFacts: GetFavouriteFactsMethod,
   getSeenFacts: GetSeenFactsMethod,
-  getUser: GetUser,
-  register: RegisterMethod,
-  login: LoginMethod,
   getFactById: GetFactByIdMethod,
-  removeFromFavourites: RemoveFromFavouritesMethod,
+  removeFactFromFavourites: RemoveFactFromFavouritesMethod,
+
+  addUser: AddUserMethod,
+  login: LoginMethod,
+  register: RegisterMethod,
 };
 
 export default (dependencies: Dependencies) => {

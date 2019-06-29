@@ -1,4 +1,6 @@
-import composeScraper from './scrape';
+// @flow
+import composeFactScraper from './factsScraper';
+import composeQuoteScraper from './quotesScraper';
 
 import type { ScraperConfig } from '../../core/contracts';
 
@@ -7,9 +9,11 @@ type Dependencies = {
 };
 
 export default (dependencies: Dependencies) => {
-  const scraper = composeScraper(dependencies.config);
+  const factsScraper = composeFactScraper(dependencies.config);
+  const quotesScraper = composeQuoteScraper(dependencies.config);
 
   return {
-    scraper,
+    factsScraper,
+    quotesScraper,
   };
 };
