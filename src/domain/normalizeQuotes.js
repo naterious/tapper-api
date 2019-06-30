@@ -1,6 +1,9 @@
+/* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
 // @flow
 import * as r from 'ramda';
+
+import { capitalizeFirstLetter } from './normalizeFacts';
 
 const extractQuote = (detail) => {
   return r.cond([
@@ -8,17 +11,17 @@ const extractQuote = (detail) => {
       const temp = r.split('"', detail);
       return r.ifElse(
         r.equals(2),
-        () => `"${temp[1]}" - Anonymous`,
+        () => `"${capitalizeFirstLetter(temp[1])}" - Anonymous`,
         () => {
           return r.ifElse(
             r.isNil,
-            () => `"${temp[1]}" - Anonymous}`,
+            () => `"${capitalizeFirstLetter(temp[1])}" - Anonymous}`,
             () => {
-              const source = r.trim(temp[2].replace(/[^\w\s]/gi, ''));
+              const source = r.trim(capitalizeFirstLetter(temp[2]).replace(/[^\w\s]/gi, ''));
               if (r.equals(r.toLower(source), 'me')) {
-                return `"${temp[1]}" - Anonymous}`;
+                return `"${capitalizeFirstLetter(temp[1])}" - Anonymous}`;
               }
-              return `"${temp[1]}" - ${r.trim(temp[2].replace(/[^\w\s]/gi, ''))}`;
+              return `"${capitalizeFirstLetter(temp[1])}" - ${r.trim(capitalizeFirstLetter(temp[2]).replace(/[^\w\s]/gi, ''))}`;
             }
           )(temp[2]);
         }
@@ -31,8 +34,8 @@ const extractQuote = (detail) => {
         () => {
           return r.ifElse(
             r.contains('“'),
-            () => `"${temp[0].substring(1)}" - Anonymous`,
-            () => `"${temp[0]}" - Anonymous`,
+            () => `"${capitalizeFirstLetter(temp[0]).substring(1)}" - Anonymous`,
+            () => `"${capitalizeFirstLetter(temp[0])}" - Anonymous`,
           )(temp[0]);
         },
         () => {
@@ -41,8 +44,8 @@ const extractQuote = (detail) => {
             () => {
               return r.ifElse(
                 r.contains('“'),
-                () => `"${temp[0].substring(1)}" - Anonymous`,
-                () => `"${temp[0]}" - Anonymous`,
+                () => `"${capitalizeFirstLetter(temp[0]).substring(1)}" - Anonymous`,
+                () => `"${capitalizeFirstLetter(temp[0])}" - Anonymous`,
               )(temp[0]);
             },
             () => {
@@ -50,14 +53,14 @@ const extractQuote = (detail) => {
               if (r.equals(r.toLower(source), 'me')) {
                 return r.ifElse(
                   r.contains('“'),
-                  () => `"${temp[0].substring(1)}" - Anonymous`,
-                  () => `"${temp[0]}" - Anonymous`,
+                  () => `"${capitalizeFirstLetter(temp[0]).substring(1)}" - Anonymous`,
+                  () => `"${capitalizeFirstLetter(temp[0])}" - Anonymous`,
                 )(temp[0]);
               }
               return r.ifElse(
                 r.contains('“'),
-                () => `"${temp[0].substring(1)}" - ${r.trim(temp[1].replace(/[^\w\s]/gi, ''))}`,
-                () => `"${temp[0]}" - ${r.trim(temp[1].replace(/[^\w\s]/gi, ''))}`,
+                () => `"${capitalizeFirstLetter(temp[0]).substring(1)}" - ${r.trim(temp[1].replace(/[^\w\s]/gi, ''))}`,
+                () => `"${capitalizeFirstLetter(temp[0])}" - ${r.trim(temp[1].replace(/[^\w\s]/gi, ''))}`,
               )(temp[0]);
             }
           )(temp[2]);
@@ -70,7 +73,9 @@ const extractQuote = (detail) => {
 };
 
 export const normalizeQuotes = (quotesArray) => {
-  return r.map((quote) => {
+  const quotes = r.map((quote) => {
     return extractQuote(quote);
   })(quotesArray);
+
+  return r.filter(r.contains('-'), quotes);
 };

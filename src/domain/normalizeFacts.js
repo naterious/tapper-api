@@ -1,7 +1,7 @@
 // @flow
 import * as r from 'ramda';
 
-const capitalizeFirstLetter = (str) => {
+export const capitalizeFirstLetter = (str) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
