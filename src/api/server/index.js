@@ -17,6 +17,15 @@ import type { GetSeenFactsMethod } from '../facts/getSeenFacts';
 import type { GetFactByIdMethod } from '../facts/getFactById';
 import type { RemoveFactFromFavouritesMethod } from '../facts/removeFactFromFavourites';
 
+import type { GetAllQuotesMethod } from '../quotes/getAllQuotes';
+import type { MarkQuoteAsSeenMethod } from '../quotes/markQuoteAsSeen';
+import type { AddQuoteToFavouritesMethod } from '../quotes/addQuoteToFavourites';
+import type { GetUnseenQuotesMethod } from '../quotes/getUnseenQuotes';
+import type { GetFavouriteQuotesMethod } from '../quotes/getFavouriteQuotes';
+import type { GetSeenQuotesMethod } from '../quotes/getSeenQuotes';
+import type { GetQuoteByIdMethod } from '../quotes/getQuoteById';
+import type { RemoveQuoteFromFavouritesMethod } from '../quotes/removeQuoteFromFavourites';
+
 import type { RegisterMethod } from '../users/register';
 import type { LoginMethod } from '../users/login';
 
@@ -39,6 +48,15 @@ type Dependencies = {
   getSeenFacts: GetSeenFactsMethod,
   getFactById: GetFactByIdMethod,
   removeFactFromFavourites: RemoveFactFromFavouritesMethod,
+
+  getAllQuotes: GetAllQuotesMethod,
+  markQuoteAsSeen: MarkQuoteAsSeenMethod,
+  addQuoteToFavourites: AddQuoteToFavouritesMethod,
+  getUnseenQuotes: GetUnseenQuotesMethod,
+  getFavouriteQuotes: GetFavouriteQuotesMethod,
+  getSeenQuotes: GetSeenQuotesMethod,
+  getQuoteById: GetQuoteByIdMethod,
+  removeQuoteFromFavourites: RemoveQuoteFromFavouritesMethod,
 
   addUser: AddUserMethod,
   login: LoginMethod,

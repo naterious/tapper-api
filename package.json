@@ -14,7 +14,7 @@
     "lint:test": "eslint -c ./eslint-config/tests.js 'src/**/*.test.js' 'src/**/*.int.js' 'src/**/*.e2e.js'  ",
     "lint:test:fix": "yarn lint:test --fix",
     "lint:yaml": "eslint -c ./eslint-config/yaml.js '**/*.yaml'",
-    "lint:markdown": "remark -r './eslint-config/.remarkrc' *.md **/*.md",
+    "lint:markdown": "remark -r './eslint-config/.remarkrc' readMe.md",
     "lint:package": "pjl-cli -c ./eslint-config/.npmpackagejsonlintrc",
     "test": "cross-env NODE_ENV=test NODE_CONFIG_DIR=environments nyc mocha -- src/**/*.test.js",
     "flow": "flow",

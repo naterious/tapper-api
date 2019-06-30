@@ -17,12 +17,10 @@ export default (
 
   return quotesScraper()
     .chain((content) => {
-      console.log(content)
-      //return getAllQuotes()
-        //.chain((storedQuotes) => {
-          //const quotes = r.without(storedQuotes, normalizeQuotes(content));
+      return getAllQuotes()
+        .chain((storedQuotes) => {
+          const quotes = r.without(storedQuotes, normalizeQuotes(content));
 
-          const quotes = normalizeQuotes(content);
           const data = r.map((quote) => {
             const quoteId = ulid();
             return {
@@ -33,8 +31,8 @@ export default (
           })(quotes);
 
           return addQuotesToDatabase(data);
-        })
-    //})
+        });
+    })
     .map((res) => {
       return res;
     });

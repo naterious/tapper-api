@@ -13,6 +13,15 @@ import type { GetSeenFactsMethod } from '../facts/getSeenFacts';
 import type { GetFactByIdMethod } from '../facts/getFactById';
 import type { RemoveFactFromFavouritesMethod } from '../facts/removeFactFromFavourites';
 
+import type { GetAllQuotesMethod } from '../quotes/getAllQuotes';
+import type { MarkQuoteAsSeenMethod } from '../quotes/markQuoteAsSeen';
+import type { AddQuoteToFavouritesMethod } from '../quotes/addQuoteToFavourites';
+import type { GetUnseenQuotesMethod } from '../quotes/getUnseenQuotes';
+import type { GetFavouriteQuotesMethod } from '../quotes/getFavouriteQuotes';
+import type { GetSeenQuotesMethod } from '../quotes/getSeenQuotes';
+import type { GetQuoteByIdMethod } from '../quotes/getQuoteById';
+import type { RemoveQuoteFromFavouritesMethod } from '../quotes/removeQuoteFromFavourites';
+
 import type { RegisterMethod } from '../users/register';
 import type { LoginMethod } from '../users/login';
 
@@ -33,6 +42,15 @@ type Methods = {
   getFactById: GetFactByIdMethod,
   removeFactFromFavourites: RemoveFactFromFavouritesMethod,
 
+  getAllQuotes: GetAllQuotesMethod,
+  markQuoteAsSeen: MarkQuoteAsSeenMethod,
+  addQuoteToFavourites: AddQuoteToFavouritesMethod,
+  getUnseenQuotes: GetUnseenQuotesMethod,
+  getFavouriteQuotes: GetFavouriteQuotesMethod,
+  getSeenQuotes: GetSeenQuotesMethod,
+  getQuoteById: GetQuoteByIdMethod,
+  removeQuoteFromFavourites: RemoveQuoteFromFavouritesMethod,
+
   addUser: AddUserMethod,
   register: RegisterMethod,
   login: LoginMethod,
@@ -52,7 +70,6 @@ export default (methods: Methods): Router => (app: $Application) => {
   app.get('/quotes/scrape', methods.quotesScraper);
 
   app.get('/facts', methods.getAllFacts);
-  app.post('/users', methods.addUser);
   app.post('/facts/seen', methods.markFactAsSeen);
   app.post('/facts/liked', methods.addFactToFavourites);
   app.get('/facts/:id/new', methods.getUnseenFacts);
@@ -61,6 +78,16 @@ export default (methods: Methods): Router => (app: $Application) => {
   app.get('/facts/fact/:id', methods.getFactById);
   app.delete('/facts/liked', methods.removeFactFromFavourites);
 
+  app.get('/quotes', methods.getAllQuotes);
+  app.post('/quotes/seen', methods.markQuoteAsSeen);
+  app.post('/quotes/liked', methods.addQuoteToFavourites);
+  app.get('/quotes/:id/new', methods.getUnseenQuotes);
+  app.get('/quotes/:id/favourites', methods.getFavouriteQuotes);
+  app.get('/quotes/:id/seen', methods.getSeenQuotes);
+  app.get('/quotes/fact/:id', methods.getQuoteById);
+  app.delete('/quotes/liked', methods.removeQuoteFromFavourites);
+
   app.post('/users/register', methods.register);
   app.post('/users/login', methods.login);
+  app.post('/users', methods.addUser);
 };

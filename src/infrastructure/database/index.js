@@ -40,9 +40,27 @@ export default (dependencies: Dependencies) => {
 
   const addQuotesToDatabase = quote.composeAddToDb(client);
 
+  const getAllQuotes = quote.composeGetAllQuotes(client);
+
+  const addQuoteToFavourites = quote.composeAddQuoteToFavourites(client);
+
+  const getQuoteById = quote.composeGetQuoteById(client);
+
+  const getFavouriteQuotes = quote.composeGetFavouriteQuotes(client);
+
+  const getUseenQuotes = quote.composeGetUnseenQuotes(client);
+
+  const markQuoteAsSeenByUser = quote.composeMarkQuoteAsSeen(client);
+
+  // eslint-disable-next-line max-len
+  const removeQuoteFromFavourites = quote.composeRemoveQuoteFromFavourites(client);
+
+  const getSeenQuotes = quote.composeGetSeenQuotes(client);
+
   return {
-    addFactsToDatabase,
     getInstance,
+
+    addFactsToDatabase,
     getAllFacts,
     markFactAsSeenByUser,
     addFactToFavourites,
@@ -53,6 +71,14 @@ export default (dependencies: Dependencies) => {
     removeFactFromFavourites,
 
     addQuotesToDatabase,
+    getAllQuotes,
+    addQuoteToFavourites,
+    getFavouriteQuotes,
+    getUseenQuotes,
+    markQuoteAsSeenByUser,
+    getQuoteById,
+    removeQuoteFromFavourites,
+    getSeenQuotes,
 
     addUser,
     login,

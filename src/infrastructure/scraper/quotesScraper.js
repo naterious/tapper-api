@@ -16,8 +16,6 @@ let testArr = [];
 // eslint-disable-next-line
 const quotesScraper: QuotesScraper = (config: ScraperConfig) => () => {
 
-  console.log('calling proper infra')
-  console.log(config)
   const getQuotes = (deets: {
     newCount: Number,
     newId: String,
@@ -38,10 +36,7 @@ const quotesScraper: QuotesScraper = (config: ScraperConfig) => () => {
 
     return rp(options)
       .then((parsedPage) => {
-        console.log('got page');
         const te = r.map((i, element) => {
-          console.log('ELEMENT ATTRIBS = ', r.values(element.attribs))
-          console.log("ELEMENT CHILDREN DATA = ", element.children[0].data)
           //$FlowFixMe
           const id = r.head(
             r.split(
