@@ -27,6 +27,8 @@ export default (client): AddUser => (user) => {
                     password: hash,
                     favouriteFacts: [],
                     seenFacts: [],
+                    favouriteQuotes: [],
+                    seenQuotes: [],
                   };
                   return Fluture.tryP(
                     () => db.collection('users').insertOne(newUser)

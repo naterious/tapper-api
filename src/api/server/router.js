@@ -84,7 +84,7 @@ export default (methods: Methods): Router => (app: $Application) => {
   app.get('/quotes/:id/new', methods.getUnseenQuotes);
   app.get('/quotes/:id/favourites', methods.getFavouriteQuotes);
   app.get('/quotes/:id/seen', methods.getSeenQuotes);
-  app.get('/quotes/fact/:id', methods.getQuoteById);
+  app.get('/quotes/quote/:id', methods.getQuoteById);
   app.delete('/quotes/liked', methods.removeQuoteFromFavourites);
 
   app.post('/users/register', methods.register);

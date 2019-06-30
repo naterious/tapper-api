@@ -48,7 +48,7 @@ export default (dependencies: Dependencies) => {
 
   const getFavouriteQuotes = quote.composeGetFavouriteQuotes(client);
 
-  const getUseenQuotes = quote.composeGetUnseenQuotes(client);
+  const getUnseenQuotes = quote.composeGetUnseenQuotes(client);
 
   const markQuoteAsSeenByUser = quote.composeMarkQuoteAsSeen(client);
 
@@ -74,7 +74,7 @@ export default (dependencies: Dependencies) => {
     getAllQuotes,
     addQuoteToFavourites,
     getFavouriteQuotes,
-    getUseenQuotes,
+    getUnseenQuotes,
     markQuoteAsSeenByUser,
     getQuoteById,
     removeQuoteFromFavourites,
