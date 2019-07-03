@@ -1,11 +1,9 @@
 {
   "presets": [
-    "babel-preset-flow",
-    "babel-preset-es2015-node",
-    "babel-preset-stage-0"
+    "@babel/preset-typescript"
   ],
   "plugins": [
-    "babel-plugin-istanbul",
-    "babel-plugin-transform-export-extensions"
+    "@babel/plugin-proposal-class-properties",
+		"@babel/plugin-proposal-object-rest-spread"
   ]
 }

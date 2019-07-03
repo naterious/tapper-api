@@ -1,7 +1,8 @@
 module.exports = {
+  'parser': '@typescript-eslint/parser',
+  'plugins': ['@typescript-eslint'],
   'extends': [
     './core.js',
-    './flowtype.js',
     './import.js',
     './fp.js',
   ],
@@ -18,12 +19,5 @@ module.exports = {
     'browser': false,
     'es6': true,
     'node': true,
-  },
-  'parserOptions': {
-    'ecmaFeatures': {
-      'experimentalObjectRestSpread': true,
-      'jsx': true,
-    },
-    'sourceType': 'module',
   },
 };
