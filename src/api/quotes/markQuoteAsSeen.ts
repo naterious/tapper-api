@@ -13,6 +13,7 @@ export type MarkQuoteAsSeenMethod = (
 
 export default (
   markQuoteAsSeenService: MarkQuoteAsSeenService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): MarkQuoteAsSeenMethod => (req, res) => {

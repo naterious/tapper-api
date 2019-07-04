@@ -13,6 +13,7 @@ export type FactsScraperMethod = (
 
 export default (
   factsScraperService: FactsScraperService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): FactsScraperMethod => (req, res) => {

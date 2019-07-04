@@ -5,17 +5,19 @@ import rp from 'request-promise';
 
 import { ScraperConfig, QuotesScraper } from '../../core/contracts';
 
+/* eslint-disable */ 
 let quotesArray: string[] = [];
 var overallCount = 0;
 var quoteId = '';
 let testArr = [];
+/* eslint-enable */
 
 const quotesScraper = (config: ScraperConfig): QuotesScraper => () => {
 
   const getQuotes = (deets: {
     count: Number,
     id: String,
-  } | {}) => new Promise((resolve, reject) => {
+  } | {}) => new Promise((resolve) => {
 
     const options = r.ifElse(
       r.isNil,
@@ -41,9 +43,11 @@ const quotesScraper = (config: ScraperConfig): QuotesScraper => () => {
             ),
           )[4];
 
+          /* eslint-disable */
           overallCount = i + 1;
           quoteId = id;
           quotesArray.push(element.children[0].data);
+          /* eslint-enable */
 
           return {
             id,

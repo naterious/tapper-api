@@ -13,6 +13,7 @@ export type GetAllFactsMethod = (
 
 export default (
   getAllFactsService: GetAllFactsService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetAllFactsMethod => (req, res) => {

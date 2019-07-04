@@ -52,6 +52,7 @@ export default (client: Client): Login => (userInput) => {
                       return of({
                         success: true,
                         token: `Bearer ${token}`,
+                        // eslint-disable-next-line no-underscore-dangle
                         id: user._id,
                       });
                     },

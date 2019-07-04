@@ -13,6 +13,7 @@ export type AddFactToFavouritesMethod = (
 
 export default (
   addFactToFavouritesService: AddFactToFavouritesService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): AddFactToFavouritesMethod => (req, res) => {

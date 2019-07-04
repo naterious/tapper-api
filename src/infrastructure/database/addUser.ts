@@ -20,6 +20,7 @@ export default (client: Client): AddUser => (user) => {
               return tryP(() => bcrypt.hash(user.password, 10))
                 .chain((hash: string) => {
                   const newUser = {
+                    // eslint-disable-next-line no-underscore-dangle
                     _id: user._id,
                     name: user.name,
                     email: user.email,

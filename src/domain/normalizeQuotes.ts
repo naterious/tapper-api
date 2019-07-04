@@ -1,4 +1,5 @@
 import * as r from 'ramda';
+/* eslint-disable import/prefer-default-export */
 
 import { capitalizeFirstLetter } from './normalizeFacts';
 
@@ -14,7 +15,12 @@ const extractQuote = (detail: string) => {
             r.isNil,
             () => `"${capitalizeFirstLetter(temp[1])}" - Anonymous}`,
             () => {
-              const source = r.trim(capitalizeFirstLetter(temp[2]).replace(/[^\w\s]/gi, ''));
+              const source = r.trim(
+                capitalizeFirstLetter(
+                  temp[2]
+                ).replace(/[^\w\s]/gi, '')
+              );
+
               if (r.equals(r.toLower(source), 'me')) {
                 return `"${capitalizeFirstLetter(temp[1])}" - Anonymous}`;
               }

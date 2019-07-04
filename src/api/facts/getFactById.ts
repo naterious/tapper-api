@@ -13,6 +13,7 @@ export type GetFactByIdMethod = (
 
 export default (
   getFactByIdService: GetFactByIdService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetFactByIdMethod => (req, res) => {

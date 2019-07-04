@@ -13,6 +13,7 @@ export type GetQuoteByIdMethod = (
 
 export default (
   getQuoteByIdService: GetQuoteByIdService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetQuoteByIdMethod => (req, res) => {

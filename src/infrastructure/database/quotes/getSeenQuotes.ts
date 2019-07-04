@@ -1,4 +1,4 @@
-import { tryP, parallel} from 'fluture';
+import { tryP, parallel } from 'fluture';
 import * as r from 'ramda';
 
 import { GetSeenQuotes } from '../../../core/contracts';

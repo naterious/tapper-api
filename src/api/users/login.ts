@@ -20,6 +20,7 @@ export type LoginMethod = (
 export default (
   validateLoginInput: ValidateLoginInput,
   loginService: LoginService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): LoginMethod => (req, res) => {

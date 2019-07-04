@@ -13,6 +13,7 @@ export type GetFavouriteFactsMethod = (
 
 export default (
   getFavouriteFactsService: GetFavouriteFactsService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetFavouriteFactsMethod => (req, res) => {

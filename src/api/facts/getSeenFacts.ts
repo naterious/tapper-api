@@ -13,6 +13,7 @@ export type GetSeenFactsMethod = (
 
 export default (
   getSeenFactsService: GetSeenFactsService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetSeenFactsMethod => (req, res) => {

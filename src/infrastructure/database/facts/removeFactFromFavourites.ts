@@ -19,6 +19,7 @@ export default (client: Client): RemoveFactFromFavourites => (details) => {
             user.favouriteFacts,
           );
           return tryP(() => db.collection('users').updateOne(
+            // eslint-disable-next-line no-underscore-dangle
             { _id: user._id },
             { $set: { favouriteFacts: newFavourites } },
           ));

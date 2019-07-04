@@ -17,6 +17,7 @@ export default (client: Client): AddQuoteToFavourites => (details) => {
           const newFavourites = r.append(details.quoteId, user.favouriteQuotes);
 
           return tryP(() => db.collection('users').updateOne(
+            // eslint-disable-next-line no-underscore-dangle
             { _id: user._id },
             { $set: { favouriteQuotes: newFavourites } },
           ));

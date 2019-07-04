@@ -2,6 +2,7 @@ import passportJwt from 'passport-jwt';
 import mongoose from 'mongoose';
 import config from 'config';
 
+// eslint-disable-next-line
 var user = require('../../core/models/user');
 
 const JwtStrategy = passportJwt.Strategy;
@@ -13,6 +14,7 @@ const opts = <{
   secretOrKey: string,
 }>{};
 
+/* eslint-disable */
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = config.get('passport.secretOrKey');
 

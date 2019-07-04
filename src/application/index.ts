@@ -142,6 +142,7 @@ export default (dependencies: Dependencies) => {
     dependencies.getQuoteById,
   );
 
+  // eslint-disable-next-line max-len
   const removeQuoteFromFavouritesService = quote.createRemoveQuoteFromFavourites(
     dependencies.removeQuoteFromFavourites,
   );

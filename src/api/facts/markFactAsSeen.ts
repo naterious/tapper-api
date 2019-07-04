@@ -13,6 +13,7 @@ export type MarkFactAsSeenMethod = (
 
 export default (
   markFactAsSeenService: MarkFactAsSeenService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): MarkFactAsSeenMethod => (req, res) => {

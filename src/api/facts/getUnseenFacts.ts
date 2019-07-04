@@ -13,6 +13,7 @@ export type GetUnseenFactsMethod = (
 
 export default (
   getUnseenFactsService: GetUnseenFactsService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetUnseenFactsMethod => (req, res) => {

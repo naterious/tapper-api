@@ -51,6 +51,7 @@ export default (dependencies: Dependencies) => {
 
   const markQuoteAsSeenByUser = quote.composeMarkQuoteAsSeen(client);
 
+  // eslint-disable-next-line max-len
   const removeQuoteFromFavourites = quote.composeRemoveQuoteFromFavourites(client);
 
   const getSeenQuotes = quote.composeGetSeenQuotes(client);

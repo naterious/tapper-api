@@ -17,6 +17,7 @@ export default (client: Client): MarkQuoteAsSeenByUser => (details) => {
           const newSeen = r.append(details.quoteId, user.seenQuotes);
 
           return tryP(() => db.collection('users').updateOne(
+            // eslint-disable-next-line no-underscore-dangle
             { _id: user._id },
             { $set: { seenQuotes: newSeen } },
           ));

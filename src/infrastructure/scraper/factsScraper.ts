@@ -5,17 +5,19 @@ import rp from 'request-promise';
 
 import { ScraperConfig, FactsScraper } from '../../core/contracts';
 
+/* eslint-disable */
 let factsArray: string[] = [];
 var overallCount = 0;
 var factId = '';
 let testArr = [];
+/* eslint-enable */
 
 const factsScraper = (config: ScraperConfig): FactsScraper => () => {
 
   const getFacts = (deets: {
     count: Number,
     id: String,
-  }) => new Promise((resolve, reject) => {
+  }) => new Promise((resolve) => {
 
     const options = r.ifElse(
       r.isNil,
@@ -40,9 +42,11 @@ const factsScraper = (config: ScraperConfig): FactsScraper => () => {
             ),
           ).substr(23);
 
+          /* eslint-disable */
           overallCount = i + 1;
           factId = id;
           factsArray.push(element.children[0].data);
+          /* eslint-enable */
 
           return {
             id,

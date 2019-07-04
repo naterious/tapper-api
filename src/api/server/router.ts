@@ -1,4 +1,4 @@
-import { Router as $Router, Application } from 'express';
+import { Application } from 'express';
 
 import { FactsScraperMethod } from '../facts/scraper';
 import { QuotesScraperMethod } from '../quotes/scraper';
@@ -54,6 +54,7 @@ type Methods = {
   login: LoginMethod,
 };
 
+// eslint-disable-next-line fp/no-nil
 export default (methods: Methods): Router => (app: Application) => {
   app.get('/version', (req, res) => {
     return res.send('1.0.0');

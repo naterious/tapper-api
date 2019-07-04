@@ -1,6 +1,12 @@
 module.exports = {
   'parser': '@typescript-eslint/parser',
   'plugins': ['@typescript-eslint'],
+  'settings': {
+    "import/resolver": {
+      // use <root>/tsconfig.json
+      "typescript": {},
+    }
+  },
   'extends': [
     './core.js',
     './import.js',

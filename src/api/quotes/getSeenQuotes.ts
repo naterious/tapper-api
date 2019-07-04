@@ -13,6 +13,7 @@ export type GetSeenQuotesMethod = (
 
 export default (
   getSeenQuotesService: GetSeenQuotesService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): GetSeenQuotesMethod => (req, res) => {

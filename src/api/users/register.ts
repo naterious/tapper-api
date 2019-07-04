@@ -16,6 +16,7 @@ export type RegisterMethod = (
 export default (
   validateRegisterInput: ValidateRegisterInput,
   addUserService: AddUserService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): RegisterMethod => (req, res) => {

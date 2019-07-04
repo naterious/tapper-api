@@ -13,6 +13,7 @@ export type QuotesScraperMethod = (
 
 export default (
   quotesScraperService: QuotesScraperService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): QuotesScraperMethod => (req, res) => {

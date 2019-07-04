@@ -13,6 +13,7 @@ export type RemoveQuoteFromFavouritesMethod = (
 
 export default (
   removeQuoteFromFavouritesService: RemoveQuoteFromFavouritesService,
+  // eslint-disable-next-line no-unused-vars
   logger: Logger,
   //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
 ): RemoveQuoteFromFavouritesMethod => (req, res) => {
