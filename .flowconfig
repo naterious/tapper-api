@@ -1,7 +1,0 @@
-[libs]
-
-[options]
-
-[ignore]
-.*/node_modules/jrgen/*
-.*/node_modules/jsonlint/*
