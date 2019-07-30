@@ -1,3 +1,4 @@
 node_modules
 yarn-error.log
 environments/local.yaml
+lib

@@ -17,9 +17,8 @@
     "lint:markdown": "remark -r './eslint-config/.remarkrc' readMe.md",
     "lint:package": "pjl-cli -c ./eslint-config/.npmpackagejsonlintrc",
     "test": "cross-env NODE_ENV=test NODE_CONFIG_DIR=environments nyc mocha -- src/**/*.test.ts",
-    "type": "tsc",
     "type:coverage": "yarn type-coverage --detail true",
-    "build": "babel ./src --out-dir lib --extensions '.ts'",
+    "build": "tsc",
     "createDb": "node scripts/createDb.js",
     "dropDb": "node scripts/dropDb.js",
     "docker:mongo": "mkdir -p data && docker run -d -p 27017:27017 -v data:/data/db mongo",
@@ -88,7 +87,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-watch": "^2.0.7",
     "chai": "^4.1.2",
-    "cross-env": "^5.1.1",
+    "cross-env": "^5.2.0",
     "eslint": "^6.0.1",
     "eslint-import-resolver-typescript": "^1.1.1",
     "eslint-plugin-fp": "^2.3.0",
@@ -120,7 +119,7 @@
     "tsconfig-paths": "^3.8.0",
     "tslint": "^5.18.0",
     "type-coverage": "^2.0.4",
-    "typescript": "^3.5.2"
+    "typescript": "^3.5.3"
   },
   "eslintConfig": {
     "env": {
