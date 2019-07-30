@@ -27,5 +27,5 @@ export default (
   router(app);
 
   logger.info(`Server running at port ${serverConfig.port}`);
-  return app.listen(serverConfig.port);
+  return app.listen(process.env.PORT || serverConfig.port);
 };
