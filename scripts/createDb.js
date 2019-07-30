@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = 'mongodb://upukbnrbcpqqbhjwo99y:gw1GOT5l2EGtyCXkXcM5@blig6cqv6dawmby-mongodb.services.clever-cloud.com:27017/blig6cqv6dawmby';
+const url = 'mongodb+srv://test:test123@cluster0-4xd31.mongodb.net/test?retryWrites=true&w=majority';
 const macUrl = 'mongodb://192.168.99.100:27017';
 
 const dbName = 'TriviaTapper';
