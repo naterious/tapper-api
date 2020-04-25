@@ -1,26 +1,23 @@
-import { tryP, of } from 'fluture';
 import * as r from 'ramda';
 
 import { AddFactsToDatabase } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): AddFactsToDatabase => (data) => {
-
+export default (client: Client): AddFactsToDatabase => async (data) => {
   return r.ifElse(
     r.isEmpty,
-    () => of(0),
-    () => {
-      return tryP(() => client.connect())
-        .chain(() => {
-          const db = client.db('TriviaTapper');
+    () => 0,
+    async () => {
+      try {
+        await client.connect();
+        const db = client.db('TriviaTapper');
+        await db.collection('Facts').insertMany(data);
 
-          return tryP(() => db.collection('Facts').insertMany(data));
-        })
-        .map(() => {
-          return r.length(data);
-        })
-        .mapRej((err) => err);
+        return r.length(data);
+      }
+      catch (err) {
+        return err;
+      }
     }
   )(data);
-
 };

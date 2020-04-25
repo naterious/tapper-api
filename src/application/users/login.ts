@@ -1,17 +1,12 @@
-import { FutureInstance as Future } from 'fluture';
 import { Login } from '../../core/contracts';
 
 export type LoginService = (userInput: {
   email: string,
   password: string,
-}) => Future<any, any>;
+}) => Promise<any>;
 
 export default (
   login: Login,
-): LoginService => (userInput) => {
-
-  return login(userInput)
-    .map((res) => {
-      return res;
-    });
+): LoginService => async (userInput) => {
+  return await login(userInput)
 };

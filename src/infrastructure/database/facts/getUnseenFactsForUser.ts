@@ -1,37 +1,33 @@
-import { tryP, of, parallel } from 'fluture';
 import * as r from 'ramda';
 
 import { GetUnseenFacts } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetUnseenFacts => (id) => {
+export default (client: Client): GetUnseenFacts => async (id) => {
+  try {
+    await client.connect();
+    const db = client.db('TriviaTapper');
+    const users = db.collection('users');
+    const facts = db.collection('Facts');
 
-  return tryP(() => client.connect())
-    .chain(() => {
+    const storedUsers = await users.find({ _id: id }).toArray();
+    const user = r.head(storedUsers);
 
-      const db = client.db('TriviaTapper');
-      const users = db.collection('users');
-      const facts = db.collection('Facts');
+    if (r.isEmpty(user.seenFacts)) {
+      return [];
+    }
 
-      return tryP(() => users.find({ _id: id }).toArray())
-        .chain((storedUsers) => {
-          const user = r.head(storedUsers);
-          if (r.isEmpty(user.seenFacts)){
-            return of([]);
-          }
-          const flutures = r.map((seenId) => {
-            return tryP(() => facts.find({ _id: seenId }).toArray());
-          })(user.seenFacts);
+    const promises = r.map((seenId) => {
+      return facts.find({ _id: seenId }).toArray();
+    })(user.seenFacts);
 
-          return parallel(Infinity, flutures);
-        })
-        .chain((seenArray) => {
-          const seenFacts = r.unnest(seenArray);
-          return tryP(() => facts.find({}).toArray())
-            .map((allFacts) => r.without(seenFacts, allFacts));
+    const seenArray = await Promise.all(promises);
+    const seenFacts = r.unnest(seenArray);
+    const allFacts = await facts.find({}).toArray();
 
-        });
-    })
-    .map((result) => result)
-    .mapRej((err) => err);
+    return r.without(seenFacts, allFacts);
+  }
+  catch (err) {
+    return err;
+  }
 };

@@ -1,29 +1,15 @@
-import { Response, Request } from 'express';
-
-import { GetAllQuotesService } from '../../application/quotes/getAllQuotes';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type GetAllQuotesMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { GetAllService } from '../../application/getAll/getAllService';
+import { EntityType } from '../../application/interfaces';
+import { ApiMethod } from '../types';
 
 export default (
-  getAllQuotesService: GetAllQuotesService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): GetAllQuotesMethod => (req, res) => {
-  return getAllQuotesService()
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
-    });
+  getAllQuotesService: GetAllService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await getAllQuotesService(EntityType.QUOTE);
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

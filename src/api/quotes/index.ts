@@ -1,21 +1,35 @@
-import createQuotesScraper from './scraper';
-import createGetAllQuotes from './getAllQuotes';
-import createMarkQuoteAsSeen from './markQuoteAsSeen';
-import createAddQuoteToFavourites from './addQuoteToFavourites';
-import createGetUnseenQuotes from './getUnseenQuotes';
-import createGetFavouriteQuotes from './getFavouriteQuotes';
-import createGetSeenQuotes from './getSeenQuotes';
-import createGetQuoteById from './getQuoteById';
-import createRemoveQuoteFromFavourites from './removeQuoteFromFavourites';
+import composeQuotesScraper from './scraper';
+import composeGetAllQuotes from './getAllQuotes';
+import composeMarkQuoteAsSeen from './markQuoteAsSeen';
+import composeAddQuoteToFavourites from './addQuoteToFavourites';
+import composeGetUnseenQuotes from './getUnseenQuotes';
+import composeGetFavouriteQuotes from './getFavouriteQuotes';
+import composeGetSeenQuotes from './getSeenQuotes';
+import composeGetQuoteById from './getQuoteById';
+import composeRemoveQuoteFromFavourites from './removeQuoteFromFavourites';
 
-export default {
-  createQuotesScraper,
-  createGetAllQuotes,
-  createMarkQuoteAsSeen,
-  createAddQuoteToFavourites,
-  createGetUnseenQuotes,
-  createGetFavouriteQuotes,
-  createGetSeenQuotes,
-  createGetQuoteById,
-  createRemoveQuoteFromFavourites,
+import { IQuotesDependencies } from './interfaces';
+
+export default (dependencies: IQuotesDependencies) => {
+  const quotesScraperMethod = composeQuotesScraper(dependencies.quotesScraperService);
+  const getAllQuotesMethod = composeGetAllQuotes(dependencies.getAllService);
+  const markQuoteAsSeenMethod = composeMarkQuoteAsSeen(dependencies.markAsSeenService);
+  const addQuoteToFavouritesMethod = composeAddQuoteToFavourites(dependencies.addToFavouritesService);
+  const getUnseenQuotesMethod = composeGetUnseenQuotes(dependencies.getUnseenService);
+  const getFavouriteQuotesMethod = composeGetFavouriteQuotes(dependencies.getFavouritesService);
+  const getSeenQuotesMethod = composeGetSeenQuotes(dependencies.getSeenService);
+  const getQuoteByIdMethod = composeGetQuoteById(dependencies.getByIdService);
+  const removeQuoteFromFavouritesMethod = composeRemoveQuoteFromFavourites(dependencies.removeFromFavouritesService);
+
+  return {
+    quotesScraperMethod,
+    getAllQuotesMethod,
+    markQuoteAsSeenMethod,
+    addQuoteToFavouritesMethod,
+    getUnseenQuotesMethod,
+    getFavouriteQuotesMethod,
+    getSeenQuotesMethod,
+    getQuoteByIdMethod,
+    removeQuoteFromFavouritesMethod,
+  };
 };

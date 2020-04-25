@@ -1,175 +1,73 @@
-import fact from './facts';
-import quote from './quotes';
-import user from './users';
+import composeScrapers from './scrapers';
+import composeUsers from './users';
+import composeGetAllService from './getAll';
+import composeAddToFavouritesService from './addToFavourites';
+import composeGetByIdService from './getById';
+import composeGetFavouritesService from './getFavourites';
+import composeGetSeenService from './getSeen';
+import composeGetUnseenService from './getUnseen';
+import composeMarkAsSeenService from './markAsSeen';
+import composeRemoveFromFavouritesService from './removeFromFavourites';
 
-import {
-  FactsScraper,
-  QuotesScraper,
+import {IApplicationDependencies} from './interfaces';
 
-  AddFactsToDatabase,
-  GetAllFacts,
-  MarkFactAsSeenByUser,
-  AddFactToFavourites,
-  GetUnseenFacts,
-  GetFavouriteFacts,
-  GetSeenFacts,
-  GetFactById,
-  RemoveFactFromFavourites,
+export default (dependencies: IApplicationDependencies) => {
+  const users = composeUsers(dependencies);
 
-  GetAllQuotes,
-  AddQuotesToDatabase,
-  MarkQuoteAsSeenByUser,
-  AddQuoteToFavourites,
-  GetUnseenQuotes,
-  GetFavouriteQuotes,
-  GetSeenQuotes,
-  GetQuoteById,
-  RemoveQuoteFromFavourites,
+  const scrapers = composeScrapers(dependencies);
 
-  AddUser,
-  Login,
-} from '../core/contracts';
-
-type Dependencies = {
-  factsScraper: FactsScraper,
-  quotesScraper: QuotesScraper,
-
-  addFactsToDatabase: AddFactsToDatabase,
-  getAllFacts: GetAllFacts,
-  markFactAsSeenByUser: MarkFactAsSeenByUser,
-  addFactToFavourites: AddFactToFavourites,
-  getUnseenFacts: GetUnseenFacts,
-  getFavouriteFacts: GetFavouriteFacts,
-  getSeenFacts: GetSeenFacts,
-  getFactById: GetFactById,
-  removeFactFromFavourites: RemoveFactFromFavourites,
-
-  getAllQuotes: GetAllQuotes,
-  addQuotesToDatabase: AddQuotesToDatabase,
-  markQuoteAsSeenByUser: MarkQuoteAsSeenByUser,
-  addQuoteToFavourites: AddQuoteToFavourites,
-  getUnseenQuotes: GetUnseenQuotes,
-  getFavouriteQuotes: GetFavouriteQuotes,
-  getSeenQuotes: GetSeenQuotes,
-  getQuoteById: GetQuoteById,
-  removeQuoteFromFavourites: RemoveQuoteFromFavourites,
-
-  addUser: AddUser,
-  login: Login,
-};
-
-export default (dependencies: Dependencies) => {
-
-  const factsScraperService = fact.createScraper(
-    dependencies.factsScraper,
-    dependencies.addFactsToDatabase,
+  const getAllService = composeGetAllService(
     dependencies.getAllFacts,
+    dependencies.getAllQuotes,
   );
 
-  const getAllFactsService = fact.createGetAllFacts(
-    dependencies.getAllFacts,
-  );
-
-  const markFactAsSeenService = fact.createMarkFactAsSeen(
-    dependencies.markFactAsSeenByUser,
-  );
-
-  const addFactToFavouritesService = fact.createAddFactToFavourites(
+  const addToFavouritesService = composeAddToFavouritesService(
     dependencies.addFactToFavourites,
-  );
-
-  const getUnseenFactsService = fact.createGetUnseenFacts(
-    dependencies.getUnseenFacts,
-  );
-
-  const getFavouriteFactsService = fact.createGetFavourties(
-    dependencies.getFavouriteFacts,
-  );
-
-  const getSeenFactsService = fact.createGetSeenFacts(
-    dependencies.getSeenFacts,
-  );
-
-  const getFactByIdService = fact.createGetFactById(
-    dependencies.getFactById,
-  );
-
-  const removeFactFromFavouritesService = fact.createRemoveFactFromFavourites(
-    dependencies.removeFactFromFavourites,
-  );
-
-
-  const addUserService = user.createAddUser(
-    dependencies.addUser,
-  );
-
-  const loginService = user.createLogin(
-    dependencies.login,
-  );
-
-
-  const quotesScraperService = quote.createScraper(
-    dependencies.quotesScraper,
-    dependencies.addQuotesToDatabase,
-    dependencies.getAllQuotes,
-  );
-
-  const getAllQuotesService = quote.createGetAllQuotes(
-    dependencies.getAllQuotes,
-  );
-
-  const markQuoteAsSeenService = quote.createMarkQuoteAsSeen(
-    dependencies.markQuoteAsSeenByUser,
-  );
-
-  const addQuoteToFavouritesService = quote.createAddQuoteToFavourites(
     dependencies.addQuoteToFavourites,
   );
 
-  const getUnseenQuotesService = quote.createGetUnseenQuotes(
-    dependencies.getUnseenQuotes,
-  );
-
-  const getFavouriteQuotesService = quote.createGetFavourties(
-    dependencies.getFavouriteQuotes,
-  );
-
-  const getSeenQuotesService = quote.createGetSeenQuotes(
-    dependencies.getSeenQuotes,
-  );
-
-  const getQuoteByIdService = quote.createGetQuoteById(
+  const getByIdService = composeGetByIdService(
+    dependencies.getFactById,
     dependencies.getQuoteById,
   );
 
-  // eslint-disable-next-line max-len
-  const removeQuoteFromFavouritesService = quote.createRemoveQuoteFromFavourites(
+  const getFavouritesService = composeGetFavouritesService(
+    dependencies.getFavouriteFacts,
+    dependencies.getFavouriteQuotes,
+  );
+
+  const getSeenService = composeGetSeenService(
+    dependencies.getSeenFacts,
+    dependencies.getSeenQuotes,
+  );
+
+  const getUnseenService = composeGetUnseenService(
+    dependencies.getUnseenFacts,
+    dependencies.getUnseenQuotes,
+  );
+
+  const markAsSeenService = composeMarkAsSeenService(
+    dependencies.markFactAsSeenByUser,
+    dependencies.markQuoteAsSeenByUser,
+  );
+
+  const removeFromFavouritesService = composeRemoveFromFavouritesService(
+    dependencies.removeFactFromFavourites,
     dependencies.removeQuoteFromFavourites,
   );
 
   return {
-    factsScraperService,
-    quotesScraperService,
+    getAllService,
+    addToFavouritesService,
+    getByIdService,
+    getFavouritesService,
+    getSeenService,
+    getUnseenService,
+    markAsSeenService,
+    removeFromFavouritesService,
 
-    getAllFactsService,
-    markFactAsSeenService,
-    addFactToFavouritesService,
-    getUnseenFactsService,
-    getFavouriteFactsService,
-    getSeenFactsService,
-    getFactByIdService,
-    removeFactFromFavouritesService,
+    ...users,
 
-    getAllQuotesService,
-    markQuoteAsSeenService,
-    addQuoteToFavouritesService,
-    getUnseenQuotesService,
-    getFavouriteQuotesService,
-    getSeenQuotesService,
-    getQuoteByIdService,
-    removeQuoteFromFavouritesService,
-
-    addUserService,
-    loginService,
+    ...scrapers,
   };
 };

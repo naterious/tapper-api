@@ -1,29 +1,15 @@
-import { Response, Request } from 'express';
-
-import { GetSeenQuotesService } from '../../application/quotes/getSeenQuotes';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type GetSeenQuotesMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { GetSeenService } from '../../application/getSeen/getSeenService';
+import { ApiMethod } from '../types';
+import { EntityType } from '../../application/interfaces';
 
 export default (
-  getSeenQuotesService: GetSeenQuotesService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): GetSeenQuotesMethod => (req, res) => {
-  return getSeenQuotesService(req.params.id)
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
-    });
+  getSeenQuotesService: GetSeenService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await getSeenQuotesService(req.params.id, EntityType.QUOTE);
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

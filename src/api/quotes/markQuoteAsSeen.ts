@@ -1,32 +1,19 @@
-import { Response, Request } from 'express';
-
-import { MarkQuoteAsSeenService } from '../../application/quotes/markQuoteAsSeen';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type MarkQuoteAsSeenMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { MarkAsSeenService } from '../../application/markAsSeen/markAsSeenService';
+import { ApiMethod } from '../types';
+import { EntityType } from '../../application/interfaces';
 
 export default (
-  markQuoteAsSeenService: MarkQuoteAsSeenService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): MarkQuoteAsSeenMethod => (req, res) => {
-  return markQuoteAsSeenService({
-    userId: req.body.userId,
-    quoteId: req.body.quoteId,
-  })
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
+  markQuoteAsSeenService: MarkAsSeenService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await markQuoteAsSeenService({
+      userId: req.body.userId,
+      id: req.body.quoteId,
+      type: EntityType.QUOTE
     });
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

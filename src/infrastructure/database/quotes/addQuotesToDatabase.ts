@@ -1,23 +1,23 @@
-import { tryP, of } from 'fluture';
 import * as r from 'ramda';
 
 import { AddQuotesToDatabase } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): AddQuotesToDatabase => (data) => {
+export default (client: Client): AddQuotesToDatabase => async (data) => {
 
   return r.ifElse(
     r.isEmpty,
-    () => of(0),
-    () => {
-      return tryP(() => client.connect())
-        .chain(() => {
-          const db = client.db('TriviaTapper');
-
-          return tryP(() => db.collection('Quotes').insertMany(data));
-        })
-        .map(() => r.length(data))
-        .mapRej((err) => err);
+    () => 0,
+    async () => {
+      try {
+        await client.connect();
+        const db = client.db('TriviaTapper');
+        await db.collection('Quotes').insertMany(data);
+        return r.length(data);
+      }
+      catch (err) {
+        return err;
+      }
     }
   )(data);
 

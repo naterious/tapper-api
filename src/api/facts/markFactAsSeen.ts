@@ -1,32 +1,19 @@
-import { Response, Request } from 'express';
-
-import { MarkFactAsSeenService } from '../../application/facts/markFactAsSeen';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type MarkFactAsSeenMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { MarkAsSeenService } from '../../application/markAsSeen/markAsSeenService';
+import { EntityType } from '../../application/interfaces';
+import { ApiMethod } from '../types';
 
 export default (
-  markFactAsSeenService: MarkFactAsSeenService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): MarkFactAsSeenMethod => (req, res) => {
-  return markFactAsSeenService({
-    userId: req.body.userId,
-    factId: req.body.factId,
-  })
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
+  markFactAsSeenService: MarkAsSeenService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await markFactAsSeenService({
+      userId: req.body.userId,
+      id: req.body.factId,
+      type: EntityType.FACT,
     });
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

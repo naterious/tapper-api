@@ -1,29 +1,15 @@
-import { Response, Request } from 'express';
-
-import { GetSeenFactsService } from '../../application/facts/getSeenFacts';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type GetSeenFactsMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { GetSeenService } from '../../application/getSeen/getSeenService';
+import { EntityType } from '../../application/interfaces';
+import { ApiMethod } from '../types';
 
 export default (
-  getSeenFactsService: GetSeenFactsService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): GetSeenFactsMethod => (req, res) => {
-  return getSeenFactsService(req.params.id)
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
-    });
+  getSeenFactsService: GetSeenService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await getSeenFactsService(req.params.id, EntityType.FACT);
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

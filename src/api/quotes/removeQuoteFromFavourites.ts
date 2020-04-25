@@ -1,32 +1,19 @@
-import { Response, Request } from 'express';
-
-import { RemoveQuoteFromFavouritesService } from '../../application/quotes/removeQuoteFromFavourites';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type RemoveQuoteFromFavouritesMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { RemoveFromFavouritesService } from '../../application/removeFromFavourites/removeFromFavouritesService';
+import { ApiMethod } from '../types';
+import { EntityType } from '../../application/interfaces';
 
 export default (
-  removeQuoteFromFavouritesService: RemoveQuoteFromFavouritesService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): RemoveQuoteFromFavouritesMethod => (req, res) => {
-  return removeQuoteFromFavouritesService({
-    userId: req.body.userId,
-    quoteId: req.body.quoteId,
-  })
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
+  removeQuoteFromFavouritesService: RemoveFromFavouritesService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await removeQuoteFromFavouritesService({
+      userId: req.body.userId,
+      id: req.body.quoteId,
+      type: EntityType.QUOTE
     });
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };

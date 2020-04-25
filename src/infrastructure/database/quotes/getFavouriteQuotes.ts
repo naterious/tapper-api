@@ -1,29 +1,28 @@
-import { tryP, parallel } from 'fluture';
 import * as r from 'ramda';
 
 import { GetFavouriteQuotes } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetFavouriteQuotes => (id) => {
+export default (client: Client): GetFavouriteQuotes => async (id) => {
 
-  return tryP(() => client.connect())
-    .chain(() => {
-      const db = client.db('TriviaTapper');
-      const users = db.collection('users');
-      const quotes = db.collection('Quotes');
+  try {
+    await client.connect();
+    const db = client.db('TriviaTapper');
+    const users = db.collection('users');
+    const quotes = db.collection('Quotes');
 
-      return tryP(() => users.find({ _id: id }).toArray())
-        .chain((storedUsers) => {
-          const user = r.head(storedUsers);
+    const storedUsers = await users.find({ _id: id }).toArray();
+    const user = r.head(storedUsers);
 
-          const flutures = r.map((favId) => {
-            return tryP(() => quotes.find({ _id: favId }).toArray());
-          })(user.favouriteQuotes);
+    const promises = r.map((favId) => {
+      return quotes.find({ _id: favId }).toArray();
+    })(user.favouriteQuotes);
 
-          return parallel(Infinity, flutures);
-        })
-        .map((favsArray) => r.unnest(favsArray));
-    })
-    .map((result) => result)
-    .mapRej((err) => err);
+    const favsArray = await Promise.all(promises);
+
+    return r.unnest(favsArray);
+  }
+  catch (err) {
+    return err;
+  }
 };

@@ -1,28 +1,38 @@
-import { FutureInstance as Future } from 'fluture';
+export type AddFactsToDatabase = (data: Array<Object>) => Promise<number>;
 
-export type AddFactsToDatabase = (data: Array<Object>) => Future<any, any>;
-
-export type GetAllFacts = () => Future<any, any>;
+export type GetAllFacts = () => Promise<string[]>;
 
 export type MarkFactAsSeenByUser = (details: {
   userId: string,
   factId: String,
-}) => Future<any, any>;
+}) => Promise<string>;
 
 export type AddFactToFavourites = (details: {
   userId: string,
   factId: String,
-}) => Future<any, any>;
+}) => Promise<string>;
 
-export type GetUnseenFacts = (id: string) => Future<any, any>;
+export type GetUnseenFacts = (id: string) => Promise<{
+  fact: string,
+  id: string,
+}[]>;
 
-export type GetFavouriteFacts = (id: string) => Future<any, any>;
+export type GetFavouriteFacts = (id: string) => Promise<{
+  fact: string,
+  id: string,
+}[]>;
 
-export type GetSeenFacts = (id: string) => Future<any, any>;
+export type GetSeenFacts = (id: string) => Promise<{
+  fact: string,
+  id: string,
+}[]>;
 
-export type GetFactById = (id: string) => Future<any, any>;
+export type GetFactById = (id: string) => Promise<{
+  fact: string,
+  id: string,
+}>;
 
 export type RemoveFactFromFavourites = (details: {
   userId: string,
   factId: string,
-}) => Future<any, any>;
+}) => Promise<string>;

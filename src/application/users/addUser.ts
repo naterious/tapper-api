@@ -1,4 +1,3 @@
-import { FutureInstance as Future } from 'fluture';
 import { AddUser } from '../../core/contracts';
 
 export type AddUserService = (user: {
@@ -6,14 +5,10 @@ export type AddUserService = (user: {
   name: string,
   email: string,
   password: string,
-}) => Future<any, any>;
+}) => Promise<any>;
 
 export default (
   addUser: AddUser,
-): AddUserService => (id) => {
-
-  return addUser(id)
-    .map((res) => {
-      return res;
-    });
+): AddUserService => async (id) => {
+  return await addUser(id)
 };

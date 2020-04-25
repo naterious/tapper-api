@@ -1,5 +1,3 @@
-import { FutureInstance as Future } from 'fluture';
+export type FactsScraper = () => Promise<string[]>;
 
-export type FactsScraper = () => Future<any, string[]>;
-
-export type QuotesScraper = () => Future<any, string[]>;
+export type QuotesScraper = () => Promise<string[]>;

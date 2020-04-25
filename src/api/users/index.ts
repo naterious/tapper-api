@@ -1,13 +1,23 @@
-import createRegister from './register';
+import composeRegister from './register';
 import validateRegisterInput from './validation/register';
 
-import createLogin from './login';
+import composeLogin from './login';
 import validateLoginInput from './validation/login';
+import { IUserDependencies } from './interfaces';
 
-export default {
-  createRegister,
-  validateRegisterInput,
+export default (dependencies: IUserDependencies) => {
+  const registerMethod = composeRegister(
+    validateRegisterInput,
+    dependencies.addUserService,
+  );
 
-  createLogin,
-  validateLoginInput,
+  const loginMethod = composeLogin(
+    validateLoginInput,
+    dependencies.loginService,
+  );
+
+  return {
+    registerMethod,
+    loginMethod,
+  }
 };

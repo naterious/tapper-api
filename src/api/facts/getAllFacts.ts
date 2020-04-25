@@ -1,29 +1,15 @@
-import { Response, Request } from 'express';
-
-import { GetAllFactsService } from '../../application/facts/getAllFacts';
-import {
-  Logger,
-  //DefaultApiMethodErrorHandler,
-} from '../../core/contracts';
-
-export type GetAllFactsMethod = (
-  req: Request,
-  res: Response,
-) => Promise<any>;
+import { GetAllService } from '../../application/getAll/getAllService';
+import { EntityType } from '../../application/interfaces';
+import { ApiMethod } from '../types';
 
 export default (
-  getAllFactsService: GetAllFactsService,
-  // eslint-disable-next-line no-unused-vars
-  logger: Logger,
-  //defaultApiMethodErrorHandler: DefaultApiMethodErrorHandler,
-): GetAllFactsMethod => (req, res) => {
-  return getAllFactsService()
-    //.mapRej(defaultApiMethodErrorHandler)
-    .promise()
-    .then((result) => {
-      return res.status(200).send(result);
-    })
-    .catch((err) => {
-      return res.status(500).send(err);
-    });
+  getAllFactsService: GetAllService,
+): ApiMethod => async (req, res) => {
+  try {
+    const result = await getAllFactsService(EntityType.FACT);
+    return res.status(200).send(result);
+  }
+  catch (err) {
+    return res.status(500).send(err);
+  }
 };
