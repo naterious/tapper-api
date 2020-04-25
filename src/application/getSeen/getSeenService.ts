@@ -9,10 +9,10 @@ export type GetSeenService = (
 export default (
   getSeenFacts: GetSeenFacts,
   getSeenQuotes: GetSeenQuotes,
-): GetSeenService => async (id, type) => {
+): GetSeenService => (id, type) => {
   if (type === EntityType.FACT) {
-    return await getSeenFacts(id);
-  } else {
-    return await getSeenQuotes(id);
+    return getSeenFacts(id);
   }
+  return getSeenQuotes(id);
+
 };

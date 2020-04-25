@@ -11,7 +11,7 @@ export default (
   quotesScraper: QuotesScraper,
   addQuotesToDatabase: AddQuotesToDatabase,
   getAllQuotes: GetAllQuotes,
-): QuotesScraperService => async () => {
+): QuotesScraperService => async() => {
   const content = await quotesScraper();
   const storedQuotes = await getAllQuotes();
 
@@ -25,5 +25,5 @@ export default (
     };
   })(quotes);
 
-  return await addQuotesToDatabase(data);
+  return addQuotesToDatabase(data);
 };

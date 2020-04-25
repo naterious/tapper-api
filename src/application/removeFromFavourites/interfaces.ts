@@ -1,4 +1,4 @@
-import { EntityType } from "../interfaces";
+import { EntityType } from '../interfaces';
 
 export interface RemoveFromFavouritesParams {
   userId: string,

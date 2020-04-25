@@ -7,6 +7,6 @@ export type LoginService = (userInput: {
 
 export default (
   login: Login,
-): LoginService => async (userInput) => {
-  return await login(userInput)
+): LoginService => (userInput) => {
+  return login(userInput);
 };

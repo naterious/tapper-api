@@ -19,7 +19,9 @@ export default (dependencies: IFactsDependencies) => {
   const getFavouriteFactsMethod = composeGetFavouriteFacts(dependencies.getFavouritesService);
   const getSeenFactsMethod = composeGetSeenFacts(dependencies.getSeenService);
   const getFactByIdMethod = composeGetFactById(dependencies.getByIdService);
-  const removeFactFromFavouritesMethod = composeRemoveFactFromFavourites(dependencies.removeFromFavouritesService);
+  const removeFactFromFavouritesMethod = composeRemoveFactFromFavourites(
+    dependencies.removeFromFavouritesService,
+  );
 
   return {
     factsScraperMethod,

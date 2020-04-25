@@ -19,5 +19,5 @@ export default (dependencies: IUsersDependencies) => {
   return {
     addUserService,
     loginService,
-  }
+  };
 };

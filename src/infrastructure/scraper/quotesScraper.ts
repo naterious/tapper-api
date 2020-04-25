@@ -1,21 +1,20 @@
 import * as r from 'ramda';
 
 import { ScraperConfig, QuotesScraper } from '../../core/contracts';
-import { getPage } from './getPage';
+import getPage from './getPage';
 
 /* eslint-disable */ 
 let quotesArray: string[] = [];
 var overallCount = 0;
 var quoteId = '';
 let testArr = [];
-/* eslint-enable */
 
-const quotesScraper = (config: ScraperConfig): QuotesScraper => async () => {
+const quotesScraper = (config: ScraperConfig): QuotesScraper => async() => {
 
   const getQuotes = (deets?: {
     count: Number,
     id: String,
-  }) => new Promise(async (resolve) => {
+  }) => new Promise(async(resolve) => {
 
     const url = r.ifElse(
       r.isNil,
@@ -39,8 +38,7 @@ const quotesScraper = (config: ScraperConfig): QuotesScraper => async () => {
         };
       })(parsedPage('.title.may-blank'));
       return resolve(r.last(te));
-    }
-    catch (err) {
+    } catch (err) {
       return err;
     }
   });

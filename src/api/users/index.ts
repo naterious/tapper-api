@@ -19,5 +19,5 @@ export default (dependencies: IUserDependencies) => {
   return {
     registerMethod,
     loginMethod,
-  }
+  };
 };

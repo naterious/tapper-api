@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { GetSeenQuotes } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetSeenQuotes => async (id) => {
+export default (client: Client): GetSeenQuotes => async(id) => {
   try {
     await client.connect();
     const db = client.db('TriviaTapper');
@@ -16,12 +16,11 @@ export default (client: Client): GetSeenQuotes => async (id) => {
     const promises = r.map((seenId) => {
       return quotes.find({ _id: seenId }).toArray();
     })(user.seenQuotes);
-    
+
     const seenArray = await Promise.all(promises);
     const result = r.unnest(seenArray);
     return result;
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

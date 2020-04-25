@@ -1,21 +1,19 @@
 import * as r from 'ramda';
 
 import { ScraperConfig, FactsScraper } from '../../core/contracts';
-import { getPage } from './getPage';
+import getPage from './getPage';
 
 /* eslint-disable */
 let factsArray: string[] = [];
 var overallCount = 0;
 var factId = '';
 let testArr = [];
-/* eslint-enable */
 
-const factsScraper = (config: ScraperConfig): FactsScraper => async () => {
-
+const factsScraper = (config: ScraperConfig): FactsScraper => async() => {
   const getFacts = (deets?: {
     count: Number,
     id: String,
-  }) => new Promise(async (resolve) => {
+  }) => new Promise(async(resolve) => {
     const url = r.ifElse(
       r.isNil,
       () => `${config.url}/todayilearned/`,
@@ -38,8 +36,7 @@ const factsScraper = (config: ScraperConfig): FactsScraper => async () => {
         };
       })(parsedPage('.title.may-blank.outbound'));
       return resolve(r.last(te));
-    }
-    catch (err) {
+    } catch (err) {
       return err;
     }
   });

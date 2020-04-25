@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { GetUnseenFacts } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetUnseenFacts => async (id) => {
+export default (client: Client): GetUnseenFacts => async(id) => {
   try {
     await client.connect();
     const db = client.db('TriviaTapper');
@@ -26,8 +26,7 @@ export default (client: Client): GetUnseenFacts => async (id) => {
     const allFacts = await facts.find({}).toArray();
 
     return r.without(seenFacts, allFacts);
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

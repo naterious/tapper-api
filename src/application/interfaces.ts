@@ -52,7 +52,7 @@ export interface IApplicationDependencies {
 
   addUser: AddUser;
   login: Login;
-};
+}
 
 export enum EntityType {
   FACT = 'fact',

@@ -1,6 +1,6 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
-import composeAddUser from "./addUser";
+import composeAddUser from './addUser';
 import composeLogin from './login';
 
 export default (client: MongoClient) => {
@@ -10,5 +10,5 @@ export default (client: MongoClient) => {
   return {
     addUser,
     login,
-  }
-}
+  };
+};

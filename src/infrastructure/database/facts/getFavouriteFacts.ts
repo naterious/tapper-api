@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { GetFavouriteFacts } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetFavouriteFacts => async (id) => {
+export default (client: Client): GetFavouriteFacts => async(id) => {
   try {
     await client.connect();
     const db = client.db('TriviaTapper');
@@ -20,8 +20,7 @@ export default (client: Client): GetFavouriteFacts => async (id) => {
     const favsArray = await Promise.all(promises);
 
     return r.unnest(favsArray);
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

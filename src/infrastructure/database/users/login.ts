@@ -6,13 +6,13 @@ import config from 'config';
 import { Login } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): Login => async (userInput) => {
+export default (client: Client): Login => async(userInput) => {
   try {
     await client.connect();
     const db = client.db('TriviaTapper');
     const users = db.collection('users');
     const storedUsers = await users.find({ email: userInput.email }).toArray();
-    const res = r.ifElse(r.isEmpty, () => Promise.reject('Email not found'), async () => {
+    const res = r.ifElse(r.isEmpty, () => Promise.reject('Email not found'), async() => {
       const user = r.head(storedUsers);
       const isMatch = await bcrypt.compare(userInput.password, user.password);
       return r.ifElse(
@@ -36,8 +36,7 @@ export default (client: Client): Login => async (userInput) => {
       )(isMatch);
     })(storedUsers);
     return res;
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

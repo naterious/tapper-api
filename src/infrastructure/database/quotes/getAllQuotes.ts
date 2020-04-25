@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { GetAllQuotes } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetAllQuotes => async () => {
+export default (client: Client): GetAllQuotes => async() => {
 
   try {
     await client.connect();
@@ -16,8 +16,7 @@ export default (client: Client): GetAllQuotes => async () => {
       quote: string;
       id: string;
     }) => quote.quote)(result);
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

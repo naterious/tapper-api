@@ -9,7 +9,7 @@ import composeGetUnseenService from './getUnseen';
 import composeMarkAsSeenService from './markAsSeen';
 import composeRemoveFromFavouritesService from './removeFromFavourites';
 
-import {IApplicationDependencies} from './interfaces';
+import { IApplicationDependencies } from './interfaces';
 
 export default (dependencies: IApplicationDependencies) => {
   const users = composeUsers(dependencies);

@@ -9,10 +9,10 @@ export type GetByIdService = (
 export default (
   getFactById: GetFactById,
   getQuoteById: GetQuoteById,
-): GetByIdService => async (id, type) => {
+): GetByIdService => (id, type) => {
   if (type === EntityType.FACT) {
-    return await getFactById(id);
-  } else {
-    return await getQuoteById(id);
+    return getFactById(id);
   }
+  return getQuoteById(id);
+
 };

@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { MarkQuoteAsSeenByUser } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): MarkQuoteAsSeenByUser => async (details) => {
+export default (client: Client): MarkQuoteAsSeenByUser => async(details) => {
 
   try {
     await client.connect();
@@ -17,10 +17,9 @@ export default (client: Client): MarkQuoteAsSeenByUser => async (details) => {
     await db.collection('users').updateOne(
       // eslint-disable-next-line no-underscore-dangle
       { _id: user._id }, { $set: { seenQuotes: newSeen } });
-      
+
     return 'OK';
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

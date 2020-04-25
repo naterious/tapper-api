@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { AddUser } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): AddUser => async (user) => {
+export default (client: Client): AddUser => async(user) => {
   try {
     await client.connect();
     const db = client.db('TriviaTapper');
@@ -12,7 +12,7 @@ export default (client: Client): AddUser => async (user) => {
     const storedUsers = await users.find({ email: user.email }).toArray();
     r.ifElse(
       r.isEmpty,
-      async () => {
+      async() => {
         const hash = await bcrypt.hash(user.password, 10);
         const newUser = {
           // eslint-disable-next-line no-underscore-dangle
@@ -29,9 +29,8 @@ export default (client: Client): AddUser => async (user) => {
       },
       () => Promise.reject('Email already exists')
     )(storedUsers);
-    return r.omit(['password'], user);
-  }
-  catch (err) {
+    return r.omit([ 'password' ], user);
+  } catch (err) {
     return err;
   }
 };

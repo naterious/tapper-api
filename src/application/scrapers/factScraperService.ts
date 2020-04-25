@@ -11,12 +11,12 @@ export default (
   factsScraper: FactsScraper,
   addFactsToDatabase: AddFactsToDatabase,
   getAllFacts: GetAllFacts,
-): FactsScraperService => async () => {
+): FactsScraperService => async() => {
   const content = await factsScraper();
   const storedFacts = await getAllFacts();
 
   const facts = r.without(storedFacts, normalizeFacts(content));
-  
+
   const data = r.map((fact) => {
     const factId = ulid();
     return {
@@ -26,5 +26,5 @@ export default (
     };
   })(facts);
 
-  return await addFactsToDatabase(data);
+  return addFactsToDatabase(data);
 };

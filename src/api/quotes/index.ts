@@ -14,12 +14,16 @@ export default (dependencies: IQuotesDependencies) => {
   const quotesScraperMethod = composeQuotesScraper(dependencies.quotesScraperService);
   const getAllQuotesMethod = composeGetAllQuotes(dependencies.getAllService);
   const markQuoteAsSeenMethod = composeMarkQuoteAsSeen(dependencies.markAsSeenService);
-  const addQuoteToFavouritesMethod = composeAddQuoteToFavourites(dependencies.addToFavouritesService);
   const getUnseenQuotesMethod = composeGetUnseenQuotes(dependencies.getUnseenService);
   const getFavouriteQuotesMethod = composeGetFavouriteQuotes(dependencies.getFavouritesService);
   const getSeenQuotesMethod = composeGetSeenQuotes(dependencies.getSeenService);
   const getQuoteByIdMethod = composeGetQuoteById(dependencies.getByIdService);
-  const removeQuoteFromFavouritesMethod = composeRemoveQuoteFromFavourites(dependencies.removeFromFavouritesService);
+  const addQuoteToFavouritesMethod = composeAddQuoteToFavourites(
+    dependencies.addToFavouritesService,
+  );
+  const removeQuoteFromFavouritesMethod = composeRemoveQuoteFromFavourites(
+    dependencies.removeFromFavouritesService,
+  );
 
   return {
     quotesScraperMethod,

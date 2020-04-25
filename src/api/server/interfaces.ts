@@ -1,5 +1,5 @@
-import { ApiMethod } from "../types";
-import { Logger, ServerConfig } from "../../core/contracts";
+import { ApiMethod } from '../types';
+import { Logger, ServerConfig } from '../../core/contracts';
 
 export interface IServerDependencies {
   serverConfig: ServerConfig;
@@ -28,4 +28,4 @@ export interface IServerDependencies {
 
   loginMethod: ApiMethod;
   registerMethod: ApiMethod;
-};
+}

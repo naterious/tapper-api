@@ -5,5 +5,5 @@ export default winston.createLogger({
     winston.format.colorize(),
     winston.format.simple()
   ),
-  transports: [new winston.transports.Console()]
+  transports: [ new winston.transports.Console() ],
 });

@@ -9,16 +9,16 @@ export type RemoveFromFavouritesService = (
 export default (
   removeFactFromFavourites: RemoveFactFromFavourites,
   removeQuoteFromFavourites: RemoveQuoteFromFavourites,
-): RemoveFromFavouritesService => async (params) => {
+): RemoveFromFavouritesService => (params) => {
   if (params.type === EntityType.FACT) {
-    return await removeFactFromFavourites({
+    return removeFactFromFavourites({
       factId: params.id,
       userId: params.userId,
     });
-  } else {
-    return await removeQuoteFromFavourites({
-      quoteId: params.id,
-      userId: params.userId,
-    });
   }
+  return removeQuoteFromFavourites({
+    quoteId: params.id,
+    userId: params.userId,
+  });
+
 };

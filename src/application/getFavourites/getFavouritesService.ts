@@ -9,10 +9,10 @@ export type GetFavouritesService = (
 export default (
   getFavouriteFacts: GetFavouriteFacts,
   getFavouriteQuotes: GetFavouriteQuotes,
-): GetFavouritesService => async (id, type) => {
+): GetFavouritesService => (id, type) => {
   if (type === EntityType.FACT) {
-    return await getFavouriteFacts(id);
-  } else {
-    return await getFavouriteQuotes(id);
+    return getFavouriteFacts(id);
   }
+  return getFavouriteQuotes(id);
+
 };

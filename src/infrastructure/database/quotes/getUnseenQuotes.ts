@@ -3,7 +3,7 @@ import * as r from 'ramda';
 import { GetUnseenQuotes } from '../../../core/contracts';
 import { Client } from '../repositories/getInstance';
 
-export default (client: Client): GetUnseenQuotes => async (id) => {
+export default (client: Client): GetUnseenQuotes => async(id) => {
 
   try {
     await client.connect();
@@ -26,10 +26,9 @@ export default (client: Client): GetUnseenQuotes => async (id) => {
     const seenQuotes = r.unnest(seenArray);
 
     const allQuotes = await quotes.find({}).toArray();
-    
+
     return r.without(seenQuotes, allQuotes);
-  }
-  catch (err) {
+  } catch (err) {
     return err;
   }
 };

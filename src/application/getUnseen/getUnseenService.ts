@@ -9,10 +9,10 @@ export type GetUnseenService = (
 export default (
   getUnseenFacts: GetUnseenFacts,
   getUnseenQuotes: GetUnseenQuotes,
-): GetUnseenService => async (id, type) => {
+): GetUnseenService => (id, type) => {
   if (type === EntityType.FACT) {
-    return await getUnseenFacts(id);
-  } else {
-    return await getUnseenQuotes(id);
+    return getUnseenFacts(id);
   }
+  return getUnseenQuotes(id);
+
 };

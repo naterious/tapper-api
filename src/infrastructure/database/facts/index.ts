@@ -31,5 +31,5 @@ export default (client: MongoClient) => {
     getSeenFacts,
     getFactById,
     removeFactFromFavourites,
-  }
+  };
 };

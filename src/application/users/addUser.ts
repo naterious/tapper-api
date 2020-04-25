@@ -9,6 +9,6 @@ export type AddUserService = (user: {
 
 export default (
   addUser: AddUser,
-): AddUserService => async (id) => {
-  return await addUser(id)
+): AddUserService => (id) => {
+  return addUser(id);
 };

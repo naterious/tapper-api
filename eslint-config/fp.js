@@ -16,7 +16,6 @@ module.exports = {
     'fp/no-mutating-assign': 'error',
     'fp/no-mutating-methods': 'error',
     'fp/no-mutation': 'error',
-    'fp/no-nil': 'warn',
     'fp/no-proxy': 'error',
     'fp/no-this': 'error',
     // End FP

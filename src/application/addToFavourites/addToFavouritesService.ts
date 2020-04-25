@@ -9,16 +9,16 @@ export type AddToFavouritesService = (
 export default (
   addFactToFavourites: AddFactToFavourites,
   addQuoteToFavourites: AddQuoteToFavourites,
-): AddToFavouritesService => async (params) => {
+): AddToFavouritesService => (params) => {
   if (params.type === EntityType.FACT) {
-    return await addFactToFavourites({
+    return addFactToFavourites({
       factId: params.id,
-      userId: params.userId,
-    })
-  } else {
-    return await addQuoteToFavourites({
-      quoteId: params.id,
       userId: params.userId,
     });
   }
+  return addQuoteToFavourites({
+    quoteId: params.id,
+    userId: params.userId,
+  });
+
 };

@@ -9,16 +9,16 @@ export type MarkAsSeenService = (
 export default (
   markFactAsSeen: MarkFactAsSeenByUser,
   markQuoteAsSeen: MarkQuoteAsSeenByUser,
-): MarkAsSeenService => async (params) => {
+): MarkAsSeenService => (params) => {
   if (params.type === EntityType.FACT) {
-    return await markFactAsSeen({
+    return markFactAsSeen({
       factId: params.id,
       userId: params.userId,
     });
-  } else {
-    return await markQuoteAsSeen({
-      quoteId: params.id,
-      userId: params.userId,
-    });
   }
+  return markQuoteAsSeen({
+    quoteId: params.id,
+    userId: params.userId,
+  });
+
 };

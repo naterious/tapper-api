@@ -18,5 +18,5 @@ export default (dependencies: IScraperDependencies) => {
   return {
     factsScraperService,
     quotesScraperService,
-  }
+  };
 };
